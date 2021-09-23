@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.login_register">
 
     <application
@@ -8,8 +9,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Login_register">
-        <activity android:name=".login"></activity>
+        android:theme="@style/Theme.Login_register"
+        tools:replace="android:appComponentFactory"
+        android:appComponentFactory="whateverString"
+        tools:ignore="UnusedAttribute">
+        <activity
+            android:name=".ChatScreen1"
+            android:exported="true" />
+        <activity android:name=".login" />
         <activity android:name=".Register_page" />
         <activity
             android:name=".MainActivity"

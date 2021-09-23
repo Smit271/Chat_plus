@@ -18,28 +18,37 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        LogIn = findViewById(R.id.loginBtn);
-        Register = findViewById(R.id.registerBtn);
+        Button[] Buttons = {
+                findViewById(R.id.loginBtn),
+                findViewById(R.id.registerBtn),
+                findViewById(R.id.chatbtn)
 
-        Register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, Register_page.class);
+        };
 
-                // start the activity connect to the specified class
-                startActivity(intent);
-            }
-        });
+        Class[] classActivities = {
+                Register_page.class,
+                login.class,
+                ChatScreen1.class
+        };
 
-        LogIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, login.class);
+        //create dynamic loop to handle onclick event
+        for (int btn_no = 0;btn_no<Buttons.length;btn_no++) {
+            Button btn = (Button) Buttons[btn_no];
 
-                // start the activity connect to the specified class
-                startActivity(intent);
-            }
-        });
+            int finalBtn_no = btn_no;
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(MainActivity.this, classActivities[finalBtn_no]);
+
+                    // start the activity connect to the specified class
+                    startActivity(intent);
+                }
+            });
+
+        }
+
+
 
     }
 }

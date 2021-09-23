@@ -121,7 +121,7 @@ public class Register_page extends AppCompatActivity {
 
         // Database initialization
         FirebaseDatabase db = FirebaseDatabase.getInstance();
-        DatabaseReference ref = db.getReference("users");
+        DatabaseReference ref = db.getReference("users"); //table name
 
         // Authentication initialization
         mAuth = FirebaseAuth.getInstance();

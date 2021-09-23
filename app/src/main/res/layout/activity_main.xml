@@ -16,11 +16,27 @@
         android:layout_alignParentTop="true"
         android:src="@drawable/register"
         android:layout_marginBottom="15dp"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/chatbtn"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="Chat"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="192dp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="26sp"
+        app:cornerRadius="15dp">
+
+    </com.google.android.material.button.MaterialButton>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/loginBtn"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:text="Log in"
+        android:text="Register"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="25dp"
         android:layout_marginBottom="128dp"
@@ -29,14 +45,12 @@
         android:textSize="26sp"
         app:cornerRadius="15dp">
 
-
-
     </com.google.android.material.button.MaterialButton>
     <com.google.android.material.button.MaterialButton
         android:id="@+id/registerBtn"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:text="Register"
+        android:text="login"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="25dp"
         android:layout_marginBottom="64dp"
