@@ -9,7 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Login_register">
-        <activity android:name=".login"></activity>
+        <activity
+            android:name=".search_users"
+            android:exported="true" />
+        <activity
+            android:name="com.example.search_users.search_users"
+            android:exported="true" />
+        <activity
+            android:name=".home"
+            android:exported="true" />
+        <activity android:name=".login" />
         <activity android:name=".Register_page" />
         <activity
             android:name=".MainActivity"

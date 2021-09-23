@@ -82,6 +82,8 @@ public class login extends AppCompatActivity {
                                         String email = task.getResult().getString("email");
 
                                         Toast.makeText(getApplicationContext(), "Logged In as " + user_name, Toast.LENGTH_LONG).show();
+                                        Intent intent = new Intent(login.this, home.class);
+                                        startActivity(intent);
                                     }
                                     else {
                                         Intent intent = new Intent(login.this, Register_page.class);
