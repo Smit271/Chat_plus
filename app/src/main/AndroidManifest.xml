@@ -9,18 +9,33 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+
         android:theme="@style/Theme.Login_register"
         tools:replace="android:appComponentFactory"
         android:appComponentFactory="whateverString"
-        tools:ignore="UnusedAttribute">
+        tools:ignore="UnusedAttribute"
+        >
         <activity
             android:name=".ChatScreen1"
-            android:exported="true" />
-        <activity android:name=".login" />
-        <activity android:name=".Register_page" />
+            android:label="Chat_screen_1"/>
+
+        <activity
+            android:name=".search_users"
+            android:exported="true"
+            android:label="Search friend"/>
+
+        <activity
+            android:name=".home"
+            android:exported="true"
+            android:label="Add friend"/>
+        <activity android:name=".login"
+            android:label="Login"/>
+        <activity android:name=".Register_page"
+            android:label="Register"/>
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:label="Home">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
