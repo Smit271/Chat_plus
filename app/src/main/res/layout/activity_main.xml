@@ -29,6 +29,8 @@
         android:textSize="26sp"
         app:cornerRadius="15dp">
 
+
+
     </com.google.android.material.button.MaterialButton>
     <com.google.android.material.button.MaterialButton
         android:id="@+id/registerBtn"
