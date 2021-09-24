@@ -1,5 +1,6 @@
 package com.example.login_register;
 
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,12 +8,16 @@ import android.nfc.Tag;
 import android.os.Bundle;
 import android.text.Editable;
 import android.util.Log;
+
+import android.os.Bundle;
+
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -38,8 +43,8 @@ public class ChatScreen1 extends AppCompatActivity {
         String uid = current_user.getUid();
         FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
         DocumentReference ref = fireStore.collection("users").document(uid);
-
         ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.getResult().exists()) {

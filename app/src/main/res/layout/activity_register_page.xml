@@ -120,13 +120,24 @@
         android:text="Register"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="25dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="84dp"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="26sp"
         app:cornerRadius="15dp">
 
     </com.google.android.material.button.MaterialButton>
+
+    <TextView
+        android:id="@+id/textview_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Already registered? Login"
+        android:textSize="14sp"
+        android:clickable="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="58dp"
+        android:layout_centerHorizontal="true"/>
 
     <ProgressBar
         android:id="@+id/progressBar"

@@ -27,7 +27,7 @@ public class chat_listview_of_friends extends AppCompatActivity {
         //Profile Image should be come from database using user id
         ArrayList<SingleFriend> singleFriends = new ArrayList<SingleFriend>();
         for (int i = 0; i < myFreindUnames.size(); i++) {
-            singleFriends.add(new SingleFriend(myFreindUnames.get(i),R.drawable.ic_google));
+            singleFriends.add(new SingleFriend(myFreindUnames.get(i),R.drawable.ic_launcher_foreground));
         }
 
         //create adapter

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.nfc.Tag;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -43,6 +45,7 @@ public class Register_page extends AppCompatActivity {
     Button mregisterBtn;
     EditText mEmail, mPass, mName, mconfirmPass, mUsername;
     String userId;
+    TextView mLogin;
     ProgressBar progressBar;
     // Declaring instance of FireStore Database
     FirebaseFirestore fstore;
@@ -63,6 +66,7 @@ public class Register_page extends AppCompatActivity {
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
+
         // Init Register button
         mregisterBtn = findViewById(R.id.registerBtn);
         mName =  findViewById(R.id.name);
@@ -72,9 +76,19 @@ public class Register_page extends AppCompatActivity {
         mconfirmPass = findViewById(R.id.confirm_passwd);
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
+        mLogin = findViewById(R.id.textview_login);
 
 
+        // If user click on already have an account login text -- Redirect to login page..
+        mLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Register_page.this, login.class );
+                startActivity(intent);
+            }
+        });
 
+        // When user click on register button
         mregisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,15 +143,17 @@ public class Register_page extends AppCompatActivity {
         // Creating instance of FirebaseFireStore
         fstore = FirebaseFirestore.getInstance();
 
+        // Creating user with email and password -- with the help of Firebase authentication
         mAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
 
+                    // Making object of data -- to pass into FireStore Database
                     dataHandler obj = new dataHandler(name, email, pass);
                     // Add data to database of firebase
                     ref.child(username).setValue(obj);
-
+                    // getting current user's unique UID
                     userId = mAuth.getCurrentUser().getUid();
                     // Store user-data in FireStore
                     DocumentReference documentReference = fstore.collection("users").document(userId);
@@ -151,12 +167,15 @@ public class Register_page extends AppCompatActivity {
                         @Override
                         public void onSuccess(Void unused) {
                             Log.d(TAG, "Successfully registered user for "+username);
-                            progressBar.setVisibility(View.GONE);
                         }
                     });
 
+                    // Making toast for successfully registration
                     Toast.makeText(getApplicationContext(), "User registered", Toast.LENGTH_LONG).show();
+                    // After completion redirecting to main screen
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    // Making progressbar invisible after successfully registration
+                    progressBar.setVisibility(View.GONE);
                 }
                 else{
                     Toast.makeText(getApplicationContext(), ""+task.getException().getMessage(), Toast.LENGTH_LONG).show();
