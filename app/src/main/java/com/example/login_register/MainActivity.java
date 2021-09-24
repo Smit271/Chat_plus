@@ -21,14 +21,15 @@ public class MainActivity extends AppCompatActivity {
         Button[] Buttons = {
                 findViewById(R.id.loginBtn),
                 findViewById(R.id.registerBtn),
-                findViewById(R.id.chatbtn)
-
+                //findViewById(R.id.chatbtn),
+                findViewById(R.id.chatbtn1)
         };
 
         Class[] classActivities = {
                 Register_page.class,
                 login.class,
-                ChatScreen1.class
+                //ChatScreen1.class,
+                chat_listview_of_friends.class
         };
 
         //create dynamic loop to handle onclick event
