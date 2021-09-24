@@ -13,6 +13,7 @@
         android:theme="@style/Theme.Login_register"
         tools:ignore="UnusedAttribute"
         tools:replace="android:appComponentFactory">
+        <activity android:name=".setting_profile_picture"></activity>
         <activity
             android:name=".chat_listview_of_friends"
             android:exported="true" />

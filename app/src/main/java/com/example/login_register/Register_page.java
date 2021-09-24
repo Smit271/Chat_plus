@@ -1,41 +1,46 @@
 package com.example.login_register;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.media.MediaPlayer;
-import android.nfc.Tag;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseError;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,12 +51,13 @@ public class Register_page extends AppCompatActivity {
     EditText mEmail, mPass, mName, mconfirmPass, mUsername;
     String userId;
     TextView mLogin;
+    ImageView mProfile;
     ProgressBar progressBar;
     // Declaring instance of FireStore Database
     FirebaseFirestore fstore;
     // Declaring Instance of Firebase
     private FirebaseAuth mAuth;
-
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +83,7 @@ public class Register_page extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
         mLogin = findViewById(R.id.textview_login);
+        mProfile = findViewById(R.id.profile_picture);
 
 
         // If user click on already have an account login text -- Redirect to login page..
@@ -173,7 +180,7 @@ public class Register_page extends AppCompatActivity {
                     // Making toast for successfully registration
                     Toast.makeText(getApplicationContext(), "User registered", Toast.LENGTH_LONG).show();
                     // After completion redirecting to main screen
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    startActivity(new Intent(getApplicationContext(), setting_profile_picture.class));
                     // Making progressbar invisible after successfully registration
                     progressBar.setVisibility(View.GONE);
                 }
@@ -185,7 +192,9 @@ public class Register_page extends AppCompatActivity {
         });
 
 
+
     }
+
 
     @Override
     public boolean onSupportNavigateUp() {
