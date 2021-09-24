@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
         };
 
         Class[] classActivities = {
-                Register_page.class,
                 login.class,
+                Register_page.class,
                 //ChatScreen1.class,
                 chat_listview_of_friends.class
         };
