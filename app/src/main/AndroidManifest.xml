@@ -12,28 +12,42 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Login_register"
         tools:ignore="UnusedAttribute"
-        tools:replace="android:appComponentFactory">
+        tools:replace="android:appComponentFactory"
+        >
+
+        <activity
+            android:name=".ChatScreen1"
+            android:label="Chat_screen_1"
+            android:windowSoftInputMode="adjustResize"/>
+
+
         <activity android:name=".setting_profile_picture"></activity>
         <activity
             android:name=".chat_listview_of_friends"
             android:exported="true" />
-        <activity
-            android:name=".ChatScreen1"
-            android:label="Chat_screen_1" />
+
         <activity
             android:name=".search_users"
             android:exported="true"
             android:label="Search friend" />
+
         <activity
             android:name=".home"
             android:exported="true"
-            android:label="Add friend" />
+            android:label="Add friend"
+            android:windowSoftInputMode="adjustResize"/>
+
         <activity
             android:name=".login"
+            android:exported="true"
             android:label="Login" />
+
+
         <activity
             android:name=".Register_page"
-            android:label="Register" />
+            android:label="Register"
+            android:windowSoftInputMode="adjustResize"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -44,6 +58,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>
