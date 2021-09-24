@@ -2,6 +2,7 @@ package com.example.login_register;
 
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.nfc.Tag;
@@ -37,6 +38,17 @@ public class ChatScreen1 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_screen1);
+
+        //get username of friend  which sent along with intent using putExtra()
+        String uname_of_friend = getIntent().getExtras().getSerializable("uname_of_friend").toString();
+        //set username of friend at Top in curent layout
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(uname_of_friend);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
+
+//        TextView textView = (TextView)findViewById(R.id.friend_username_main_chat_screen);
+//        textView.setText(uname_of_friend);
 
         //get Current user details
         FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();

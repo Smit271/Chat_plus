@@ -41,8 +41,13 @@ public class chat_listview_of_friends extends AppCompatActivity {
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 Intent chatIntent = new Intent(chat_listview_of_friends.this,ChatScreen1.class);
+
+                //get item where user clicked
+                SingleFriend sFriend = (SingleFriend) adapterView.getItemAtPosition(position);
+                //send Username
+                chatIntent.putExtra("uname_of_friend",sFriend.getUsername());
                 startActivity(chatIntent);
             }
         });
