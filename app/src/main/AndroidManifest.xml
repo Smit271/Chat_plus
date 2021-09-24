@@ -15,9 +15,11 @@
         android:appComponentFactory="whateverString"
         tools:ignore="UnusedAttribute"
         >
+
         <activity
             android:name=".ChatScreen1"
-            android:label="Chat_screen_1"/>
+            android:label="Chat_screen_1"
+            android:windowSoftInputMode="adjustResize"/>
 
         <activity
             android:name=".search_users"
@@ -27,21 +29,32 @@
         <activity
             android:name=".home"
             android:exported="true"
-            android:label="Add friend"/>
-        <activity android:name=".login"
-            android:label="Login"/>
-        <activity android:name=".Register_page"
-            android:label="Register"/>
+            android:label="Add friend"
+            android:windowSoftInputMode="adjustResize"/>
+
         <activity
-            android:name=".MainActivity"
+            android:name=".login"
             android:exported="true"
-            android:label="Home">
+            android:windowSoftInputMode="adjustResize">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
+        <activity
+            android:name=".Register_page"
+            android:label="Register"
+            android:windowSoftInputMode="adjustResize"/>
+
+        <activity
+            android:name=".MainActivity"
+            android:label="Home"
+            android:windowSoftInputMode="adjustResize"/>
+
     </application>
 
 </manifest>
