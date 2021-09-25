@@ -5,17 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:padding="5dp"
-    android:background="@drawable/main_background">
+    android:padding="5dp">
 
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_above="@id/loginBtn"
         android:layout_alignParentTop="true"
-        android:src="@drawable/register"
-        android:layout_marginBottom="15dp"/>
+        android:layout_marginTop="-10dp"
+        android:layout_marginBottom="54dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/main_logo" />
+
+
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/chatbtn1"
@@ -28,7 +31,7 @@
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="26sp"
-        app:cornerRadius="15dp">
+        app:cornerRadius="8dp">
     </com.google.android.material.button.MaterialButton>
 
 <!--    <com.google.android.material.button.MaterialButton-->
@@ -57,9 +60,10 @@
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="26sp"
-        app:cornerRadius="15dp">
+        app:cornerRadius="8dp">
 
     </com.google.android.material.button.MaterialButton>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/registerBtn"
         android:layout_width="match_parent"
@@ -71,7 +75,7 @@
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="26sp"
-        app:cornerRadius="15dp">
+        app:cornerRadius="8dp">
 
     </com.google.android.material.button.MaterialButton>
 
