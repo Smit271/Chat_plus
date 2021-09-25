@@ -4,17 +4,17 @@ import java.util.Date;
 
 public class ChatMessage {
     private String messageText;
-    private String messageUser;
-    private String meesageUserid;
+    private String fromUserId;
+    private String touserId;
     private long messageTime;
 
     //empty constructor needed for firebase
     public ChatMessage(){ }
 
-    public ChatMessage(String messageText, String messageUser, String meesageUserid) {
+    public ChatMessage(String messageText, String fromUserId, String toUserId) {
         this.messageText = messageText;
-        this.messageUser = messageUser;
-        this.meesageUserid = meesageUserid;
+        this.fromUserId = fromUserId;
+        this.touserId = toUserId;
         messageTime = new Date().getTime();;
     }
 
@@ -26,20 +26,20 @@ public class ChatMessage {
         this.messageText = messageText;
     }
 
-    public String getMessageUser() {
-        return messageUser;
+    public String getFromUserId() {
+        return fromUserId;
     }
 
-    public void setMessageUser(String messageUser) {
-        this.messageUser = messageUser;
+    public void setFromUserId(String fromUserId) {
+        this.fromUserId = fromUserId;
     }
 
-    public String getMeesageUserid() {
-        return meesageUserid;
+    public String getTouserId() {
+        return touserId;
     }
 
-    public void setMeesageUserid(String meesageUserid) {
-        this.meesageUserid = meesageUserid;
+    public void setTouserId(String touserId) {
+        this.touserId = touserId;
     }
 
     public long getMessageTime() {

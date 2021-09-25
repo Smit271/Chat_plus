@@ -190,9 +190,6 @@ public class Register_page extends AppCompatActivity {
                 }
             }
         });
-
-
-
     }
 
 

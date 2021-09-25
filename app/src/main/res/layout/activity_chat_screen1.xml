@@ -14,6 +14,34 @@
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
         />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="10"
+        android:visibility="visible"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/message_edit_text"
+            android:layout_width="0dp"
+            android:layout_weight="9"
+            android:layout_height="wrap_content"
+            android:hint="Type of Message here"
+            >
+
+        </com.google.android.material.textfield.TextInputEditText>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_message_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_send_24"
+            android:foregroundGravity="right"
+            >
+
+        </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+    </LinearLayout>
 
     <ListView
         android:id="@+id/listview_messages"
@@ -22,32 +50,6 @@
 
     </ListView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="10"
-        >
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/message_edit_text"
-        android:layout_width="0dp"
-        android:layout_weight="9"
-        android:layout_height="wrap_content"
-        android:text="Enter your message"
-        >
 
-    </com.google.android.material.textfield.TextInputEditText>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btn_message_send"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_send_24"
-        android:foregroundGravity="right"
-        >
-
-    </com.google.android.material.floatingactionbutton.FloatingActionButton>
-
-</LinearLayout>
 
 </LinearLayout>
