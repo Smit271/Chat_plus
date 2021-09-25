@@ -22,43 +22,71 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 
 public class chat_listview_of_friends extends AppCompatActivity {
-    private String LoggedUserId = "";
+    private String MyUserId = "";
     private static final String TAG = "Kinetic";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_listview_of_friends);
 
+        //set toolbar
+        //get hashid of user from auth
+        String MyHashId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        //get reference of firestore database
+        DocumentReference fire_store_ref = FirebaseFirestore.getInstance().collection("users").document(MyHashId);
+
+        //fire a query to find user_name storded in firestore database
+        fire_store_ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    MyUserId = task.getResult().getString("user_name");
+                    Log.d(TAG,"Before Actionbar - Usrname: "+MyUserId);
+                    ActionBar actionBar = getSupportActionBar();
+                    actionBar.setTitle(MyUserId);
+                    actionBar.setDisplayHomeAsUpEnabled(true);
+                    actionBar.setDisplayShowHomeEnabled(true);
+                }
+                else{
+                    MyUserId = "Failed";
+                }
+
+            }
+        });
+
         //This is list of my friends which should be fectched from database
         ArrayList<String> myFreindUnames = new ArrayList<String>();
-        myFreindUnames.add("smit123");
-        myFreindUnames.add("malav");
+        myFreindUnames.add("Smit23");
+        myFreindUnames.add("karm261");
         myFreindUnames.add("malav16");
 
 
-        //Set current user in Tool bar
-        //get Current user details
-        FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
-        String Uid = current_user.getUid();
-        FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
-        DocumentReference ref = fireStore.collection("users").document(Uid);
-        ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-
-                                            @Override
-                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                                if (task.getResult().exists()) {
-                                                    LoggedUserId = task.getResult().getString("user_name");
-                                                    Log.d(TAG,"Usrname in Freidnslist: "+LoggedUserId);
-                                                    Log.d(TAG,"Before Actionbar - Usrname: "+LoggedUserId);
-                                                    ActionBar actionBar = getSupportActionBar();
-                                                    actionBar.setTitle(LoggedUserId);
-                                                    actionBar.setDisplayHomeAsUpEnabled(true);
-                                                    actionBar.setDisplayShowHomeEnabled(true);
-                                                }
-
-                                            }
-        });
+//        //Set current user in Tool bar
+//        //get Current user details
+//        FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+//        String Uid = current_user.getUid();
+//        FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
+//        DocumentReference ref = fireStore.collection("users").document(Uid);
+//        ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//
+//                                            @Override
+//                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                                                if (task.getResult().exists()) {
+//                                                    MyUserId = task.getResult().getString("user_name");
+//                                                    Log.d(TAG,"Usrname in Freidns list: "+MyUserId);
+//                                                    Log.d(TAG,"Before Actionbar - Usrname: "+MyUserId);
+//                                                    ActionBar actionBar = getSupportActionBar();
+//                                                    actionBar.setTitle(MyUserId);
+//                                                    actionBar.setDisplayHomeAsUpEnabled(true);
+//                                                    actionBar.setDisplayShowHomeEnabled(true);
+//                                                }
+//
+//                                            }
+//        });
 
 
         //This is list of objects to of SingleFriend to pass in array adapter

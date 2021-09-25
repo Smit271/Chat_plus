@@ -26,6 +26,7 @@
             android:layout_width="0dp"
             android:layout_weight="9"
             android:layout_height="wrap_content"
+            android:hint="Type of Message here"
             >
 
         </com.google.android.material.textfield.TextInputEditText>

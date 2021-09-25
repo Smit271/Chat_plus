@@ -64,6 +64,7 @@ public class AdapterMessage extends FirebaseListAdapter<ChatMessage> {
             String toUserId = message.getTouserId();
             String fromUserId = message.getFromUserId();
             convertView = activity.getLayoutInflater().inflate(R.layout.message, parent, false);
+
             if (fromUserId.equals(myUserId) && toUserId.equals(myFriendId)){
                 //for Logged in user (me)
                 Log.d(TAG,"Me, In getView "+myUserId);

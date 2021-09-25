@@ -25,6 +25,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -32,9 +33,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ChatScreen1 extends AppCompatActivity {
 
-    private String LoggedUserId = "";
+
+    HelperFunctions helper = new HelperFunctions();
+
+    private String MyUserId = "";
     private String MyFriendUserId = "";
-    private String LoggedInUserName = "";
+    private String MyName = "";
 
     private static final String TAG = "Kinetic";
 
@@ -43,8 +47,30 @@ public class ChatScreen1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_screen1);
 
+        //get hashid of user from auth
+        String MyHashId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        //get reference of firestore database
+        DocumentReference fire_store_ref = FirebaseFirestore.getInstance().collection("users").document(MyHashId);
+
+        //fire a query to find user_name storded in firestore database
+        fire_store_ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    MyUserId = task.getResult().getString("user_name");
+                }
+                else{
+                    MyUserId = "Failed";
+                }
+
+            }
+        });
+
         //get username of friend  which sent along with intent using putExtra()
         MyFriendUserId = getIntent().getExtras().getSerializable("uname_of_friend").toString();
+        Log.d(TAG, "On create chat screen: MyUserId: " + MyUserId);
+        Log.d(TAG, "On create chat screen: MyFrinedId: " + MyFriendUserId);
 
         //set username of friend at Top in curent layout
         ActionBar actionBar = getSupportActionBar();
@@ -58,42 +84,27 @@ public class ChatScreen1 extends AppCompatActivity {
         TextView textView = (TextView)findViewById(R.id.friend_username_main_chat_screen);
         textView.setText(MyFriendUserId);
 
-        //get Current user details
-        FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
-        String Uid = current_user.getUid();
-        FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
-        DocumentReference ref = fireStore.collection("users").document(Uid);
-        ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
 
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        FloatingActionButton fltBtn = (FloatingActionButton) findViewById(R.id.btn_message_send);
+        EditText user_message = (EditText) findViewById(R.id.message_edit_text);
+        fltBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.getResult().exists()) {
-                    LoggedUserId = task.getResult().getString("user_name");
-                    LoggedInUserName = task.getResult().getString("name");
+            public void onClick(View view) {
 
-                    FloatingActionButton fltBtn = (FloatingActionButton) findViewById(R.id.btn_message_send);
-                    EditText user_message = (EditText) findViewById(R.id.message_edit_text);
-                    fltBtn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
+                ChatMessage userChat = new ChatMessage(user_message.getText().toString(),
+                        MyUserId,MyFriendUserId);
 
-                            ChatMessage userChat = new ChatMessage(user_message.getText().toString(),
-                                    LoggedUserId,MyFriendUserId);
-                            FirebaseDatabase.getInstance().getReference().push().setValue(userChat);
-                            //Log.d(TAG, "User id: " + ChatScreen1.this.LoggedUserId);
-                            //Log.d(TAG, "User name: " + LoggedInUserName);
-                            //Toast.makeText(getApplicationContext(), "Logged In as " + LoggedInUserName, Toast.LENGTH_SHORT).show();
+                String keyForTwoUsers = helper.generateKeyFromTwoKeys(MyUserId,MyFriendUserId);
+                mDatabase.child("chats").child(keyForTwoUsers).push().setValue(userChat);
 
-                            user_message.setText("From "+LoggedUserId+" -");
+                //FirebaseDatabase.getInstance().getReference().push().setValue(userChat);
+                //Log.d(TAG, "User id: " + ChatScreen1.this.MyUserId);
+                //Log.d(TAG, "User name: " + MyName);
+                //Toast.makeText(getApplicationContext(), "Logged In as " + MyName, Toast.LENGTH_SHORT).show();
 
-                        }
-                    });
+                user_message.setText("");
 
-                    Log.d(TAG, "On create chat screen: User id: " + LoggedUserId);
-                    Log.d(TAG, "On create chat screen: User name: " + LoggedInUserName);
-                    displayChatMessages();
-
-                }
             }
         });
         }
@@ -112,7 +123,7 @@ public class ChatScreen1 extends AppCompatActivity {
           Log.d(TAG, "adapter set 4");
     }
 
-    public String getLoggedinUserId(){ return LoggedUserId; }
+    public String getLoggedinUserId(){ return MyUserId; }
 
     public  String getMyFriendUserId(){
         return MyFriendUserId;
