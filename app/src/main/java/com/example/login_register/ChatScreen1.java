@@ -80,28 +80,27 @@ public class ChatScreen1 extends AppCompatActivity {
                         }
                     });
 
-                    displayChatMessages();
+                    //displayChatMessages();
                 }
             }
         });
         }
 
 
-    public void displayChatMessages(){
-        ListView ListOfMessages = (ListView) findViewById(R.id.listview_messaged);
-
-        FirebaseListAdapter fire_adapter = new FirebaseListAdapter<ChatMessage>(ChatScreen1.this,ChatMessage.class,
-                R.layout.message, FirebaseDatabase.getInstance().getReference()) {
-            @Override
-            protected void populateView(View v, ChatMessage model, int position) {
-
-                TextView messageText = (TextView) v.findViewById(R.id.messageText);
-
-                messageText.setText(model.getMessageText());
-
-            }
-        };
-
-        ListOfMessages.setAdapter(fire_adapter);
-    }
+//    public void displayChatMessages(){
+//        ListView ListOfMessages = (ListView) findViewById(R.id.listview_messaged);
+//
+//        FirebaseListAdapter fire_adapter = new FirebaseListAdapter<ChatMessage>(ChatScreen1.this,ChatMessage.class,R.layout.message, FirebaseDatabase.getInstance().getReference()) {
+//            @Override
+//            protected void populateView(View v, ChatMessage model, int position) {
+//
+//                TextView messageText = (TextView) v.findViewById(R.id.messageText);
+//
+//                messageText.setText(model.getMessageText());
+//
+//            }
+//        };
+//
+//        ListOfMessages.setAdapter(fire_adapter);
+//    }
 }
