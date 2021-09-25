@@ -6,8 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".login"
     android:padding="@dimen/_24sdp"
-    android:overScrollMode="never"
-    android:clipToPadding="false"
     android:scrollbars="none">
 
     <LinearLayout
