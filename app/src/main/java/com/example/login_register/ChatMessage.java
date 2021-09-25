@@ -1,15 +1,21 @@
 package com.example.login_register;
 
+import java.util.Date;
+
 public class ChatMessage {
     private String messageText;
     private String messageUser;
+    private String meesageUserid;
+    private long messageTime;
 
-
+    //empty constructor needed for firebase
     public ChatMessage(){ }
 
-    public ChatMessage(String messageText, String messageUser) {
+    public ChatMessage(String messageText, String messageUser, String meesageUserid) {
         this.messageText = messageText;
         this.messageUser = messageUser;
+        this.meesageUserid = meesageUserid;
+        messageTime = new Date().getTime();;
     }
 
     public String getMessageText() {
@@ -28,4 +34,19 @@ public class ChatMessage {
         this.messageUser = messageUser;
     }
 
+    public String getMeesageUserid() {
+        return meesageUserid;
+    }
+
+    public void setMeesageUserid(String meesageUserid) {
+        this.meesageUserid = meesageUserid;
+    }
+
+    public long getMessageTime() {
+        return messageTime;
+    }
+
+    public void setMessageTime(long messageTime) {
+        this.messageTime = messageTime;
+    }
 }

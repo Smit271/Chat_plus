@@ -32,6 +32,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ChatScreen1 extends AppCompatActivity {
 
+    private String LoggedInUsername = "";
+
     private static final String TAG = "Kinetic";
 
     @Override
@@ -43,9 +45,12 @@ public class ChatScreen1 extends AppCompatActivity {
         String uname_of_friend = getIntent().getExtras().getSerializable("uname_of_friend").toString();
         //set username of friend at Top in curent layout
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(uname_of_friend);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(true);
+        if (actionBar != null) {
+            actionBar.setTitle(uname_of_friend);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowHomeEnabled(true);
+        }
+
 
 //        TextView textView = (TextView)findViewById(R.id.friend_username_main_chat_screen);
 //        textView.setText(uname_of_friend);
@@ -53,6 +58,7 @@ public class ChatScreen1 extends AppCompatActivity {
         //get Current user details
         FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = current_user.getUid();
+        LoggedInUsername = uid;
         FirebaseFirestore fireStore = FirebaseFirestore.getInstance();
         DocumentReference ref = fireStore.collection("users").document(uid);
         ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -61,6 +67,7 @@ public class ChatScreen1 extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.getResult().exists()) {
                     String user_name = task.getResult().getString("user_name");
+
                     Log.d(TAG, "User name: " + user_name);
 
                     FloatingActionButton fltBtn = (FloatingActionButton) findViewById(R.id.btn_message_send);
@@ -71,7 +78,7 @@ public class ChatScreen1 extends AppCompatActivity {
 
 
                             ChatMessage userChat = new ChatMessage(user_message.getText().toString(),
-                                    user_name);
+                                    user_name,LoggedInUsername);
                             FirebaseDatabase.getInstance().getReference().push().setValue(userChat);
                             Log.d(TAG, "User name: " + user_name);
                             Toast.makeText(getApplicationContext(), "Logged In as " + user_name, Toast.LENGTH_LONG).show();
@@ -87,6 +94,10 @@ public class ChatScreen1 extends AppCompatActivity {
         }
 
 
+      public void displayChatMessages(){
+        ListView listOfMessages = (ListView) findViewById(R.id.listview_messages);
+        AdapterMessage adapterMessage = new AdapterMessage(this,ChatMessage.class,R.layout.message,FirebaseDatabase.getInstance().getReference());
+      }
 //    public void displayChatMessages(){
 //        ListView ListOfMessages = (ListView) findViewById(R.id.listview_messaged);
 //
