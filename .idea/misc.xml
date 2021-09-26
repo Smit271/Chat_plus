@@ -8,6 +8,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_register_page.xml" value="0.14447463768115942" />
         <entry key="app/src/main/res/layout/activity_search_users.xml" value="0.2609375" />
+        <entry key="app/src/main/res/layout/user_item.xml" value="0.33" />
       </map>
     </option>
   </component>
