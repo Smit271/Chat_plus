@@ -45,8 +45,7 @@ public class setting_profile_picture extends AppCompatActivity {
     // Declaring instance of FireStore Database
     FirebaseFirestore fstore;
     HelperFunctions helperFunctions = new HelperFunctions();
-    // ProgressDialog while setting up profile picture
-    ProgressDialog progressDialog = new ProgressDialog(getApplicationContext());
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -88,7 +87,8 @@ public class setting_profile_picture extends AppCompatActivity {
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), home.class));
+                Intent intent = new Intent(setting_profile_picture.this, home.class);
+                startActivity(intent);
             }
         });
 
@@ -105,6 +105,8 @@ public class setting_profile_picture extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        // ProgressDialog while setting up profile picture
+        ProgressDialog progressDialog = new ProgressDialog(setting_profile_picture.this);
         progressDialog.setMessage("Setting up profile pic");
         if(requestCode == 1000){
             if (resultCode == Activity.RESULT_OK){

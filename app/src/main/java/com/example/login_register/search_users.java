@@ -32,7 +32,7 @@ public class search_users extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_users);
 
-        listdata=(ListView) findViewById(R.id.listdata);
+        listdata=(ListView) findViewById(R.id.list);
         txtsearch=(AutoCompleteTextView) findViewById(R.id.txtsearch);
         mref = FirebaseDatabase.getInstance().getReference("users");
 
@@ -83,7 +83,11 @@ public class search_users extends AppCompatActivity {
                 if(snapshot.exists()){
                     ArrayList<String> listusers = new ArrayList<>();
                     for (DataSnapshot ds:snapshot.getChildren()){
-                        dataHandler user = new dataHandler(ds.child("user_name").getValue(String.class), ds.child("name").getValue(String.class),ds.child("email").getValue(String.class),ds.child("pass").getValue(String.class));
+                        dataHandler user = new dataHandler(ds.child("user_name").getValue(String.class),
+                                ds.child("name").getValue(String.class),
+                                ds.child("email").getValue(String.class),
+                                ds.child("pass").getValue(String.class),
+                                ds.child("hash_id").getValue(String.class));
                         listusers.add(user.getUsername() + "\n"+ user.getName() + "\n" + user.getEmail());
                     }
 
