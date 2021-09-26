@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.firebase.ui.database.FirebaseListAdapter;
+
 import com.google.firebase.database.DatabaseReference;
 
 public class AdapterMessage extends FirebaseListAdapter<ChatMessage> {
