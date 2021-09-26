@@ -2,5 +2,5 @@
     <style name="Theme.Login_register" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="colorPrimary">@color/primary_dark</item>
         <item name="android:statusBarColor" tools:targetApi="l">@color/primary_dark</item>
-    </style>
+     </style>
 </resources>

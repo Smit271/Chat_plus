@@ -26,21 +26,6 @@
                 android:src="@drawable/chat_plus_logo" />
 
 
-            <!--<com.google.android.material.button.MaterialButton
-        android:id="@+id/chatbtn1"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:text="Chat1"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="256dp"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="26sp"
-        app:cornerRadius="8dp"
-        android:layout_below="@+id/chat_plus_logo">
-    </com.google.android.material.button.MaterialButton>-->
-
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/chatbtn1"
                 android:layout_width="match_parent"
@@ -51,35 +36,6 @@
                 android:textSize="@dimen/_13ssp"
                 app:cornerRadius="@dimen/_8sdp" />
 
-            <!--    <com.google.android.material.button.MaterialButton-->
-            <!--        android:id="@+id/chatbtn"-->
-            <!--        android:layout_width="match_parent"-->
-            <!--        android:layout_height="56dp"-->
-            <!--        android:text="Chat"-->
-            <!--        android:layout_alignParentBottom="true"-->
-            <!--        android:layout_marginTop="25dp"-->
-            <!--        android:layout_marginBottom="192dp"-->
-            <!--        android:textAlignment="center"-->
-            <!--        android:textColor="@color/white"-->
-            <!--        android:textSize="26sp"-->
-            <!--        app:cornerRadius="15dp">-->
-
-            <!--    </com.google.android.material.button.MaterialButton>-->
-
-            <!--    <com.google.android.material.button.MaterialButton
-            android:id="@+id/loginBtn"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="Login"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="128dp"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="26sp"
-            app:cornerRadius="8dp">
-
-        </com.google.android.material.button.MaterialButton>-->
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/loginBtn"
@@ -91,20 +47,6 @@
                 android:textSize="@dimen/_13ssp"
                 app:cornerRadius="@dimen/_8sdp" />
 
-
-            <!--    <com.google.android.material.button.MaterialButton
-            android:id="@+id/registerBtn"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="Register"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="64dp"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="26sp"
-            app:cornerRadius="8dp">
-        </com.google.android.material.button.MaterialButton>-->
 
 
             <com.google.android.material.button.MaterialButton
@@ -119,67 +61,5 @@
 
 
         </RelativeLayout>
-
-
-    <!--<com.google.android.material.button.MaterialButton
-        android:id="@+id/chatbtn1"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:text="Chat1"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="256dp"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="26sp"
-        app:cornerRadius="8dp"
-        android:layout_below="@+id/chat_plus_logo">
-    </com.google.android.material.button.MaterialButton>-->
-
-    <!--    <com.google.android.material.button.MaterialButton-->
-    <!--        android:id="@+id/chatbtn"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="56dp"-->
-    <!--        android:text="Chat"-->
-    <!--        android:layout_alignParentBottom="true"-->
-    <!--        android:layout_marginTop="25dp"-->
-    <!--        android:layout_marginBottom="192dp"-->
-    <!--        android:textAlignment="center"-->
-    <!--        android:textColor="@color/white"-->
-    <!--        android:textSize="26sp"-->
-    <!--        app:cornerRadius="15dp">-->
-
-    <!--    </com.google.android.material.button.MaterialButton>-->
-
-    <!--    <com.google.android.material.button.MaterialButton
-            android:id="@+id/loginBtn"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="Login"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="128dp"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="26sp"
-            app:cornerRadius="8dp">
-
-        </com.google.android.material.button.MaterialButton>-->
-
-
-    <!--    <com.google.android.material.button.MaterialButton
-            android:id="@+id/registerBtn"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="Register"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="64dp"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="26sp"
-            app:cornerRadius="8dp">
-        </com.google.android.material.button.MaterialButton>-->
-
 
 </ScrollView>

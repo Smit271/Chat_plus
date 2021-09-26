@@ -12,10 +12,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/text_view"
         android:text="Set your profile picture"
-        android:layout_marginTop="@dimen/_40sdp"
+        android:layout_marginTop="40dp"
         android:textColor="@color/primary_text"
         android:layout_centerHorizontal="true"
-        android:textSize="@dimen/_18ssp"
+        android:textSize="18sp"
         android:textStyle="bold"/>
 
     <TextView
@@ -23,11 +23,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="You are almost done !"
-        android:layout_marginTop="@dimen/_6sdp"
+        android:layout_marginTop="6dp"
         android:layout_below="@id/text_view"
         android:layout_centerHorizontal="true"
         android:textColor="@color/secondary_text"
-        android:textSize="@dimen/_12ssp"
+        android:textSize="12sp"
         android:textStyle="bold"/>
 
 
@@ -42,7 +42,7 @@
         android:layout_centerHorizontal="true"
         android:clickable="true"
         app:shapeAppearanceOverlay="@style/Circular"
-        android:layout_marginVertical="@dimen/_50sdp"
+        android:layout_marginVertical="50dp"
         android:layout_marginBottom="16dp"
         android:layout_below="@+id/sub_text_view">
     </com.google.android.material.imageview.ShapeableImageView>
@@ -71,13 +71,13 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/registerBtn"
-        android:layout_width="@dimen/_150sdp"
-        android:layout_height="@dimen/_50sdp"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
         android:layout_marginTop="5dp"
         android:layout_centerHorizontal="true"
         android:text="Register"
-        android:textSize="@dimen/_13ssp"
-        app:cornerRadius="@dimen/_8sdp"
+        android:textSize="13sp"
+        app:cornerRadius="8dp"
         android:layout_below="@+id/profile_picture"/>
 
 
