@@ -1,39 +1,46 @@
 package com.example.login_register;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.media.MediaPlayer;
-import android.nfc.Tag;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseError;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,12 +50,14 @@ public class Register_page extends AppCompatActivity {
     Button mregisterBtn;
     EditText mEmail, mPass, mName, mconfirmPass, mUsername;
     String userId;
+    TextView mLogin;
+    ImageView mProfile;
     ProgressBar progressBar;
     // Declaring instance of FireStore Database
     FirebaseFirestore fstore;
     // Declaring Instance of Firebase
     private FirebaseAuth mAuth;
-
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +72,7 @@ public class Register_page extends AppCompatActivity {
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
+
         // Init Register button
         mregisterBtn = findViewById(R.id.registerBtn);
         mName =  findViewById(R.id.name);
@@ -72,9 +82,20 @@ public class Register_page extends AppCompatActivity {
         mconfirmPass = findViewById(R.id.confirm_passwd);
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
+        mLogin = findViewById(R.id.textview_login);
+        mProfile = findViewById(R.id.profile_picture);
 
 
+        // If user click on already have an account login text -- Redirect to login page..
+        mLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Register_page.this, login.class );
+                startActivity(intent);
+            }
+        });
 
+        // When user click on register button
         mregisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,7 +142,7 @@ public class Register_page extends AppCompatActivity {
 
         // Database initialization
         FirebaseDatabase db = FirebaseDatabase.getInstance();
-        DatabaseReference ref = db.getReference("users");
+        DatabaseReference ref = db.getReference("users"); //table name
 
         // Authentication initialization
         mAuth = FirebaseAuth.getInstance();
@@ -129,15 +150,17 @@ public class Register_page extends AppCompatActivity {
         // Creating instance of FirebaseFireStore
         fstore = FirebaseFirestore.getInstance();
 
+        // Creating user with email and password -- with the help of Firebase authentication
         mAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
 
+                    // Making object of data -- to pass into FireStore Database
                     dataHandler obj = new dataHandler(name, email, pass);
                     // Add data to database of firebase
                     ref.child(username).setValue(obj);
-
+                    // getting current user's unique UID
                     userId = mAuth.getCurrentUser().getUid();
                     // Store user-data in FireStore
                     DocumentReference documentReference = fstore.collection("users").document(userId);
@@ -151,12 +174,15 @@ public class Register_page extends AppCompatActivity {
                         @Override
                         public void onSuccess(Void unused) {
                             Log.d(TAG, "Successfully registered user for "+username);
-                            progressBar.setVisibility(View.GONE);
                         }
                     });
 
+                    // Making toast for successfully registration
                     Toast.makeText(getApplicationContext(), "User registered", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    // After completion redirecting to main screen
+                    startActivity(new Intent(getApplicationContext(), setting_profile_picture.class));
+                    // Making progressbar invisible after successfully registration
+                    progressBar.setVisibility(View.GONE);
                 }
                 else{
                     Toast.makeText(getApplicationContext(), ""+task.getException().getMessage(), Toast.LENGTH_LONG).show();
@@ -164,9 +190,8 @@ public class Register_page extends AppCompatActivity {
                 }
             }
         });
-
-
     }
+
 
     @Override
     public boolean onSupportNavigateUp() {

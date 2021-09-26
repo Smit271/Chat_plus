@@ -11,7 +11,7 @@
         android:id="@+id/txtsearch"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
         android:drawableLeft="@drawable/ic_baseline_search_24"
         android:paddingLeft="10dp"
         android:background="@color/black"
@@ -24,6 +24,10 @@
         android:layout_height="match_parent"
         android:layout_below="@id/txtsearch"
         android:layout_margin="20dp"
+        android:padding="10dp"
+        android:layout_margin="10dp"
+        android:background="@color/gray"
+        android:requiresFadingEdge="vertical"
         />
 
 </RelativeLayout>

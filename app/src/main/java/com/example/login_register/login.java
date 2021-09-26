@@ -4,12 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,6 +34,7 @@ public class login extends AppCompatActivity {
     EditText mEmail, mPass;
     ProgressBar progressBar;
     FirebaseAuth mAuth;
+    TextView mRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,14 +53,40 @@ public class login extends AppCompatActivity {
         mPass = findViewById(R.id.passwd);
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
+        mRegister = findViewById(R.id.textview_register);
 
 
+        // If user click on Not have an account register text -- Redirect to Register page..
+        mRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(login.this, Register_page.class );
+                startActivity(intent);
+            }
+        });
+
+        // If user click on login button then starts evaluating credentials
         mLoginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String email = mEmail.getText().toString().trim();
                 String passwd = mPass.getText().toString().trim();
-                login_user(email, passwd);
+
+                // If any field is empty
+                if(email.isEmpty()){
+                    mEmail.setError("Enter email");
+                    mEmail.setFocusable(true);
+                }
+                else if(passwd.isEmpty()){
+                    mEmail.setError("Enter password");
+                    mEmail.setFocusable(true);
+                }
+                else{
+                    // Method to invoke for authentication
+                    mEmail.setText(""); // Clearing fields
+                    mPass.setText("");
+                    login_user(email, passwd);
+                }
             }
 
             private void login_user(String email, String passwd) {
