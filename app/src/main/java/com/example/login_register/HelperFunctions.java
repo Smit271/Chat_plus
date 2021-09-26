@@ -12,7 +12,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class HelperFunctions {
-    private String currentUname;
+    private String currentUname, user_id;
     public void HelperFunctions(){
         currentUname = "";
     }
@@ -24,6 +24,11 @@ public class HelperFunctions {
         else{
             return key2+key1;
         }
+    }
+
+    public String getUseridFromEmail(String email){
+        int index = email.indexOf('@');
+        return email.substring(0,index);
     }
 
     public String getUnameFromUid(FirebaseUser user){
