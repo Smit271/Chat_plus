@@ -19,14 +19,12 @@
         />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listdata"
+        android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/txtsearch"
+        android:layout_margin="20dp"
         android:padding="10dp"
-        android:layout_margin="10dp"
-        android:background="@color/gray"
-        android:requiresFadingEdge="vertical"
-        />
+        android:background="@color/gray"/>
 
 </RelativeLayout>

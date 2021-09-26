@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".login"
-    android:padding="24dp"
-    android:scrollbars="none">
+    android:padding="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +19,7 @@
             android:text="Welcome to Chat Plus"
             android:layout_marginTop="40dp"
             android:textColor="@color/primary_text"
-            android:textSize="18sp"
+            android:textSize="30sp"
             android:textStyle="bold"/>
 
         <TextView
@@ -29,21 +28,21 @@
             android:text="Good to see you back !"
             android:layout_marginTop="6dp"
             android:textColor="@color/secondary_text"
-            android:textSize="12sp"
+            android:textSize="20sp"
             android:textStyle="bold"/>
         
         <EditText
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:id="@+id/email"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="50dp"
             android:hint="Email"
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
             android:inputType="textEmailAddress"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:textSize="13sp"
+            android:textSize="18sp"
             android:textColor="@color/primary_text"/>
 
         <EditText
@@ -57,16 +56,18 @@
             android:inputType="textPassword"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:textSize="13sp"
+            android:textSize="18sp"
             android:textColor="@color/primary_text"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/loginBtn"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
             android:text="Sign In"
-            android:textSize="13sp"
+            android:textSize="18sp"
             app:cornerRadius="8dp"/>
 
         <TextView
@@ -76,14 +77,14 @@
             android:layout_marginTop="30dp"
             android:text="Create New Account"
             android:textColor="@color/primary"
-            android:textSize="13sp"
+            android:textSize="16sp"
             android:textStyle="bold"/>
 
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="18dp"
             android:layout_marginBottom="15dp"
             android:layout_centerHorizontal="true"/>
 

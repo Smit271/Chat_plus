@@ -28,6 +28,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
@@ -148,12 +150,17 @@ public class Register_page extends AppCompatActivity {
             public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
 
+                    // Updating user's display name
+                    FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
+                    current_user.updateProfile(profileUpdates);
+
+                    // getting current user's unique UID
+                    userId = current_user.getUid();
                     // Making object of data -- to pass into FireStore Database
-                    dataHandler obj = new dataHandler(username, name, email, pass);
+                    dataHandler obj = new dataHandler(username, name, email, pass, userId);
                     // Add data to database of firebase
                     ref.child(user_id).setValue(obj);
-                    // getting current user's unique UID
-                    userId = mAuth.getCurrentUser().getUid();
                     // Store user-data in FireStore
                     DocumentReference documentReference = fstore.collection("users").document(userId);
                     Map<String, Object> user = new HashMap<>();
@@ -172,15 +179,19 @@ public class Register_page extends AppCompatActivity {
 
                     // Making toast for successfully registration
                     Toast.makeText(getApplicationContext(), "User registered", Toast.LENGTH_LONG).show();
-                    // After completion redirecting to main screen
 
-                    startActivity(new Intent(getApplicationContext(), setting_profile_picture.class));
                     // Making progressbar invisible after successfully registration
                     progressBar.setVisibility(View.GONE);
+                    // After completion redirecting to profile screen
+                    Intent intent = new Intent(Register_page.this, setting_profile_picture.class);
+                    startActivity(intent);
                 }
                 else{
                     Toast.makeText(getApplicationContext(), ""+task.getException().getMessage(), Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(View.GONE);
+                    // After completion redirecting to main screen
+                    Intent intent = new Intent(Register_page.this, MainActivity.class);
+                    startActivity(intent);
                 }
             }
         });
