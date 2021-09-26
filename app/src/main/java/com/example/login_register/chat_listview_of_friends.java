@@ -63,6 +63,8 @@ public class chat_listview_of_friends extends AppCompatActivity {
         myFreindUnames.add("Smit23");
         myFreindUnames.add("karm261");
         myFreindUnames.add("malav16");
+        myFreindUnames.add("malav");
+        myFreindUnames.add("karm123");
 
 
 //        //Set current user in Tool bar
@@ -114,6 +116,8 @@ public class chat_listview_of_friends extends AppCompatActivity {
                 SingleFriend sFriend = (SingleFriend) adapterView.getItemAtPosition(position);
                 //send Username
                 chatIntent.putExtra("uname_of_friend",sFriend.getUsername());
+                chatIntent.putExtra("uname_of_mine",MyUserId);
+                Log.d(TAG,"In Putextra my Usrname: "+MyUserId);
                 startActivity(chatIntent);
             }
         });
