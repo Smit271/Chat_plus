@@ -1,78 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".login"
-    android:padding="5dp"
-    android:background="@drawable/global_back">
+    android:padding="@dimen/_24sdp"
+    android:scrollbars="none">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/emailTIL"
-        android:layout_alignParentTop="true"
-        android:src="@drawable/register"
-        android:layout_marginBottom="15dp"/>
-
-    <com.google.android.material.textfield.TextInputLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/passwdTIL"
-        android:id="@+id/emailTIL"
-        android:paddingBottom="8dp"
-        app:boxCornerRadiusBottomEnd="15dp"
-        app:boxCornerRadiusTopEnd="15dp"
-        app:boxCornerRadiusTopStart="15dp"
-        app:boxCornerRadiusBottomStart="15dp">
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome to Chat Plus"
+            android:layout_marginTop="@dimen/_40sdp"
+            android:textColor="@color/primary_text"
+            android:textSize="@dimen/_18ssp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Good to see you back !"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:textColor="@color/secondary_text"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"/>
+        
         <EditText
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"
             android:id="@+id/email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_40sdp"
             android:hint="Email"
-            android:layout_centerHorizontal="true"
-            android:singleLine="true"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="textEmailAddress"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:textSize="@dimen/_13ssp"
+            android:textColor="@color/primary_text"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/passwdTIL"
-        app:passwordToggleEnabled="true"
-        android:layout_above="@id/loginBtn"
-        app:boxCornerRadiusBottomEnd="15dp"
-        app:boxCornerRadiusTopEnd="15dp"
-        app:boxCornerRadiusTopStart="15dp"
-        app:boxCornerRadiusBottomStart="15dp">
         <EditText
-            android:id="@+id/passwd"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_45sdp"
+            android:id="@+id/passwd"
+            android:layout_marginTop="@dimen/_16sdp"
             android:hint="Password"
-            android:layout_centerHorizontal="true"
-            android:singleLine="true"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            android:imeOptions="actionDone"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:textSize="@dimen/_13ssp"
+            android:textColor="@color/primary_text"/>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/loginBtn"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:text="Login"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="48dp"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="26sp"
-        app:cornerRadius="15dp">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/loginBtn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:text="Sign In"
+            android:textSize="@dimen/_13ssp"
+            app:cornerRadius="@dimen/_8sdp"/>
 
-    </com.google.android.material.button.MaterialButton>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textview_register"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:text="Create New Account"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/_13ssp"
+            android:textStyle="bold"/>
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"/>
-</RelativeLayout>
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_centerHorizontal="true"/>
+
+    </LinearLayout>
+</ScrollView>

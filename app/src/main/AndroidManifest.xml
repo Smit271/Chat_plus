@@ -1,34 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.login_register">
 
     <application
         android:allowBackup="true"
+        android:appComponentFactory="whateverString"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Login_register">
+        android:theme="@style/Theme.Login_register"
+        tools:ignore="UnusedAttribute"
+        tools:replace="android:appComponentFactory"
+        >
+
+        <activity
+            android:name=".ChatScreen1"
+            android:label="Chat_screen_1"
+            android:windowSoftInputMode="adjustResize"/>
+
+
+        <activity android:name=".setting_profile_picture"></activity>
+        <activity
+            android:name=".chat_listview_of_friends"
+            android:exported="true" />
+
         <activity
             android:name=".search_users"
-            android:exported="true" />
-        <activity
-            android:name="com.example.search_users.search_users"
-            android:exported="true" />
+            android:exported="true"
+            android:label="Search friend" />
+
         <activity
             android:name=".home"
-            android:exported="true" />
-        <activity android:name=".login" />
-        <activity android:name=".Register_page" />
+            android:exported="true"
+            android:label="Add friend"
+            android:windowSoftInputMode="adjustResize"/>
+
+        <activity
+            android:name=".login"
+            android:exported="true"
+            android:label="Login" />
+
+
+        <activity
+            android:name=".Register_page"
+            android:label="Register"
+            android:windowSoftInputMode="adjustResize"/>
+
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:label="Chat+">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>
