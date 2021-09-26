@@ -43,21 +43,20 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Register_page extends AppCompatActivity {
 
     public static final String TAG = null;
     Button mregisterBtn;
     EditText mEmail, mPass, mName, mconfirmPass, mUsername;
-    String userId;
     TextView mLogin;
-    ImageView mProfile;
+    String userId;
     ProgressBar progressBar;
     // Declaring instance of FireStore Database
     FirebaseFirestore fstore;
     // Declaring Instance of Firebase
     private FirebaseAuth mAuth;
-    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,9 +68,8 @@ public class Register_page extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
-        // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
-
+        // Making object of HelperFunctions
+        HelperFunctions helper = new HelperFunctions();
 
         // Init Register button
         mregisterBtn = findViewById(R.id.registerBtn);
@@ -83,60 +81,53 @@ public class Register_page extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
         mLogin = findViewById(R.id.textview_login);
-        mProfile = findViewById(R.id.profile_picture);
 
 
         // If user click on already have an account login text -- Redirect to login page..
-        mLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Register_page.this, login.class );
-                startActivity(intent);
-            }
+        mLogin.setOnClickListener(view -> {
+            Intent intent = new Intent(Register_page.this, login.class );
+            startActivity(intent);
         });
 
         // When user click on register button
-        mregisterBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String email = mEmail.getText().toString().trim();
-                String name = StringUtils.capitalize(mName.getText().toString().trim()); // Capitalize first letter of name
-                String pass = mPass.getText().toString().trim();
-                String user_name = mUsername.getText().toString().trim();
-                String cpass = mconfirmPass.getText().toString().trim();
+        mregisterBtn.setOnClickListener(view -> {
+            String email = mEmail.getText().toString().trim();
+            String name = StringUtils.capitalize(mName.getText().toString().trim()); // Capitalize first letter of name
+            String pass = mPass.getText().toString().trim();
+            String user_name = mUsername.getText().toString().trim();
+            String cpass = mconfirmPass.getText().toString().trim();
 
-                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-                    mEmail.setError("Invalid Error");
-                    mEmail.setFocusable(true);
-                }
-                else if (user_name.isEmpty()){
-                    mName.setError("Enter UserName");
-                    mName.setFocusable(true);
-                }
-                else if (name.isEmpty()){
-                    mName.setError("Enter Name");
-                    mName.setFocusable(true);
-                }
-                else if (!pass.equals(cpass)) {
-                    mconfirmPass.setError("Enter same as above");
-                }
-                else if (pass.length() < 6) {
-                    mPass.setError("Password length at least 6 characters");
-                    mPass.setFocusable(true);
-                }
-                else {
-                    registerUser(user_name, name, email, pass);
-                    mName.setText("");
-                    mPass.setText("");
-                    mEmail.setText("");
-                    mconfirmPass.setText("");
-                    mUsername.setText("");
-                }
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                mEmail.setError("Invalid Error");
+                mEmail.setFocusable(true);
+            }
+            else if (user_name.isEmpty()){
+                mName.setError("Enter UserName");
+                mName.setFocusable(true);
+            }
+            else if (name.isEmpty()){
+                mName.setError("Enter Name");
+                mName.setFocusable(true);
+            }
+            else if (!pass.equals(cpass)) {
+                mconfirmPass.setError("Enter same as above");
+            }
+            else if (pass.length() < 6) {
+                mPass.setError("Password length at least 6 characters");
+                mPass.setFocusable(true);
+            }
+            else {
+                String user_id = helper.getUseridFromEmail(email);
+                registerUser(user_id, user_name, name, email, pass);
+                mName.setText("");
+                mPass.setText("");
+                mEmail.setText("");
+                mconfirmPass.setText("");
+                mUsername.setText("");
             }
         });
     }
-
-    private void registerUser(String username, String name, String email, String pass) {
+    private void registerUser(String user_id, String username, String name, String email, String pass) {
 
         progressBar.setVisibility(View.VISIBLE);
 
@@ -157,9 +148,9 @@ public class Register_page extends AppCompatActivity {
                 if(task.isSuccessful()) {
 
                     // Making object of data -- to pass into FireStore Database
-                    dataHandler obj = new dataHandler(name, email, pass);
+                    dataHandler obj = new dataHandler(username, name, email, pass);
                     // Add data to database of firebase
-                    ref.child(username).setValue(obj);
+                    ref.child(user_id).setValue(obj);
                     // getting current user's unique UID
                     userId = mAuth.getCurrentUser().getUid();
                     // Store user-data in FireStore
@@ -168,6 +159,7 @@ public class Register_page extends AppCompatActivity {
                     user.put("user_name", username);
                     user.put("name", name);
                     user.put("email", email);
+                    user.put("userid", user_id);
                     // If user-data stored successfully
                     documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
 

@@ -83,8 +83,8 @@ public class search_users extends AppCompatActivity {
                 if(snapshot.exists()){
                     ArrayList<String> listusers = new ArrayList<>();
                     for (DataSnapshot ds:snapshot.getChildren()){
-                        dataHandler user = new dataHandler(ds.child("name").getValue(String.class),ds.child("email").getValue(String.class),ds.child("pass").getValue(String.class));
-                        listusers.add(user.getName() + "\n" + user.getEmail());
+                        dataHandler user = new dataHandler(ds.child("user_name").getValue(String.class), ds.child("name").getValue(String.class),ds.child("email").getValue(String.class),ds.child("pass").getValue(String.class));
+                        listusers.add(user.getUsername() + "\n"+ user.getName() + "\n" + user.getEmail());
                     }
 
                     ArrayAdapter arrayAdapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1,listusers);
