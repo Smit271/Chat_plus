@@ -4,4 +4,17 @@
         name="Circular">
         <item name="cornerSize">50%</item>
     </style>
+
+    <style name="style_message_sent">
+        <item name="android:layout_gravity">right</item>
+        <item name="backgroundTint">@color/purple_200</item>
+        <item name="android:layout_marginLeft">120dp</item>
+    </style>
+
+    <style name="style_message_received">
+        <item name="android:layout_gravity">left</item>
+        <item name="backgroundTint">@color/teal_200</item>
+        <item name="android:layout_marginRight">120dp</item>
+    </style>
+
 </resources>

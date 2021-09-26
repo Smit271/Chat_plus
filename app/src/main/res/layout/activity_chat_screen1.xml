@@ -5,19 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ChatScreen1"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="10"
+    >
 
     <TextView
         android:id="@+id/friend_username_main_chat_screen"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
+        android:text="Username"
+        android:layout_weight="1"
         />
+
+
+    <ListView
+        android:id="@+id/listview_messages"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8"
+        >
+
+    </ListView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_weight="1"
         android:weightSum="10"
         android:visibility="visible"
         >
@@ -37,18 +53,14 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_baseline_send_24"
             android:foregroundGravity="right"
+            android:layout_weight="1"
             >
 
         </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/listview_messages"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-    </ListView>
 
 
 
