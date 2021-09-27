@@ -7,13 +7,11 @@
     tools:context=".MainActivity"
     android:padding="5dp">
 
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp"
             tools:context=".MainActivity">
-
 
             <ImageView
                 android:id="@+id/chat_plus_logo"
@@ -58,7 +56,6 @@
                 android:text="Register"
                 android:textSize="@dimen/_13ssp"
                 app:cornerRadius="@dimen/_8sdp" />
-
 
         </RelativeLayout>
 

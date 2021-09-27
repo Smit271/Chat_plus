@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -32,6 +33,11 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+
 
 public class setting_profile_picture extends AppCompatActivity {
 
@@ -113,29 +119,53 @@ public class setting_profile_picture extends AppCompatActivity {
                 Uri imageUri = data.getData();
                 mProfile.setImageURI(imageUri);
                 progressDialog.show();
-                uploadImagetoFirebaseStorage(imageUri);
+                try{
+                uploadImagetoFirebaseStorage(imageUri);}
+                catch (IOException e){
+                    e.printStackTrace();
+                }
                 progressDialog.dismiss();
             }
         }
     }
 
-    public void uploadImagetoFirebaseStorage(Uri imageUri) {
+    public void uploadImagetoFirebaseStorage(Uri imageUri) throws IOException {
         // uploading image to database
         String email = current_user.getEmail();
         String user_id = helperFunctions.getUseridFromEmail(email);
 
         StorageReference fileRef = storageReference.child(user_id);
-        fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//        fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//            @Override
+//            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                Toast.makeText(setting_profile_picture.this, "Profile picture set", Toast.LENGTH_LONG).show();
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull @NotNull Exception e) {
+//                Toast.makeText(setting_profile_picture.this, "Failed to set", Toast.LENGTH_LONG).show();
+//            }
+//        });
+
+
+        Bitmap bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 25, baos);
+        byte[] data = baos.toByteArray();
+        //uploading the image
+        UploadTask uploadTask2 = fileRef.putBytes(data);
+        uploadTask2.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Toast.makeText(setting_profile_picture.this, "Profile picture set", Toast.LENGTH_LONG).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onFailure(@NonNull @NotNull Exception e) {
-                Toast.makeText(setting_profile_picture.this, "Failed to set", Toast.LENGTH_LONG).show();
-            }
+            public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(setting_profile_picture.this, "Failed to set", Toast.LENGTH_LONG).show();
+           }
         });
+
     }
 
 }

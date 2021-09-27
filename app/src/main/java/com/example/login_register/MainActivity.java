@@ -34,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
                 login.class,
                 Register_page.class,
                 //ChatScreen1.class,
-                chat_listview_of_friends.class
+                chat_listview_of_friends.class,
+                search_users.class
         };
 
         //create dynamic loop to handle onclick event

@@ -40,7 +40,8 @@ public class adapter_listview_of_friends_in_chat extends ArrayAdapter <SingleFri
         funame.setText(friend.getUsername());
         //set profile image
         ImageView fprofile_image = (ImageView) listItemView.findViewById(R.id.profile_picture);
-        fprofile_image.setImageResource(friend.getProfile_image_id());
+        //fprofile_image.setImageResource(friend.getProfile_image_id());
+        fprofile_image.setImageBitmap(friend.getProfilePictureBitmap());
 
         return listItemView;
     }

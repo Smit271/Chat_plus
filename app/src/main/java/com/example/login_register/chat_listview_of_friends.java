@@ -5,13 +5,19 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,7 +29,12 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class chat_listview_of_friends extends AppCompatActivity {
@@ -31,6 +42,8 @@ public class chat_listview_of_friends extends AppCompatActivity {
     private String MyUserId = "";
     private static final String TAG = "Kinetic";
     ListView friendListView;
+    StorageReference storageReference;
+    Bitmap bitmap;
     ArrayList<String> myFriendUnames = new ArrayList<String>();
 
 
@@ -40,6 +53,7 @@ public class chat_listview_of_friends extends AppCompatActivity {
         setContentView(R.layout.activity_chat_listview_of_friends);
 
         HelperFunctions helper = new HelperFunctions();
+
 
         //fetch current User Id
         String MyEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
@@ -88,24 +102,63 @@ public class chat_listview_of_friends extends AppCompatActivity {
                     Log.d(TAG,"Key +++++++ "+snap.getKey() + "++++++++++");
                 }
 
+
+
+
+
                 Log.d(TAG,"MyFriendUnames size "+ myFriendUnames.size());
                 //This is list of objects to of SingleFriend to pass in array adapter
                 //Profile Image should be come from database using user id
                 ArrayList<SingleFriend> singleFriends = new ArrayList<SingleFriend>();
                 for (int i = 0; i < myFriendUnames.size(); i++) {
-                    singleFriends.add(new SingleFriend(myFriendUnames.get(i),R.drawable.ic_launcher_foreground));
-                    Log.d(TAG,"Fetch: ////////// "+ myFriendUnames.get(i) +" ////////////");
+
+                    try {
+                        storageReference = FirebaseStorage.getInstance().getReference().child(myFriendUnames.get(i));
+                        Log.d(TAG,"Storage Reference: "+storageReference.getName());
+                        final File localfile = File.createTempFile("lance","jpeg");
+                        Log.d(TAG,"Local File: "+ localfile.getName());
+                        int finalI = i;
+                        int finalSize = myFriendUnames.size();
+                        storageReference.getFile(localfile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                Toast.makeText(chat_listview_of_friends.this,"Picture Retrived",Toast.LENGTH_SHORT);
+                                bitmap = BitmapFactory.decodeFile(localfile.getAbsolutePath());
+
+                                //((ImageView) findViewById(R.id.test_image)).setImageBitmap(bitmap);
+                                Log.d(TAG,"bitmap retrived "+bitmap.toString());
+                                singleFriends.add(new SingleFriend(myFriendUnames.get(finalI),R.drawable.ic_launcher_foreground,bitmap));
+                                Log.d(TAG,"Fetch: ////////// "+ myFriendUnames.get(finalI) +" ////////////");
+
+                            if (finalI == finalSize-1){
+                                //create adapter
+                                Log.d(TAG,"In list adapter, singlefriends size: "+singleFriends.size());
+                                adapter_listview_of_friends_in_chat singleFriendAdapter = new adapter_listview_of_friends_in_chat(chat_listview_of_friends.this,singleFriends);
+
+                                //find the view where this adapter will throw the list of single friends
+
+
+                                friendListView.setAdapter(singleFriendAdapter);
+
+
+
+                            }
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(chat_listview_of_friends.this,"Picture can not retrived!",Toast.LENGTH_SHORT);
+                            }
+                        });
+
+                    }
+                    catch (IOException e){
+                        e.printStackTrace();
+                    }
+
                 }
 
-
-                //create adapter
-                adapter_listview_of_friends_in_chat singleFriendAdapter = new adapter_listview_of_friends_in_chat(chat_listview_of_friends.this,singleFriends);
-
-                //find the view where this adapter will throw the list of single friends
                 friendListView = (ListView) findViewById(R.id.listview_friends_chat);
-
-                friendListView.setAdapter(singleFriendAdapter);
-
                 friendListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -122,6 +175,8 @@ public class chat_listview_of_friends extends AppCompatActivity {
                 });
 
             }
+
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
