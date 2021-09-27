@@ -55,28 +55,6 @@ public class ChatScreen1 extends AppCompatActivity {
 
         MyUserId = getIntent().getExtras().getString("uname_of_mine");
 
-//        //get hashid of user from auth
-//        String MyHashId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-//        Log.d(TAG, "OnAuth: MyHashId: " + MyHashId);
-//
-//        //get reference of firestore database
-//        DocumentReference fire_store_ref = FirebaseFirestore.getInstance().collection("users").document(MyHashId);
-//
-//        //fire a query to find user_name storded in firestore database
-//        fire_store_ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                if (task.isSuccessful()){
-//                    MyUserId = task.getResult().getString("user_name");
-//                    Log.d(TAG, "OnComplete chat screen: MyUserId: " + MyUserId);
-//                }
-//                else{
-//                    MyUserId = "Failed";
-//                }
-//
-//            }
-//        });
-
         //get username of friend  which sent along with intent using putExtra()
         MyFriendUserId = getIntent().getExtras().getSerializable("uname_of_friend").toString();
 
@@ -89,13 +67,25 @@ public class ChatScreen1 extends AppCompatActivity {
             actionBar.setDisplayShowHomeEnabled(true);
         }
 
+        //Display Messages
+        String keyForTwoUsers = helper.generateKeyFromTwoKeys(MyUserId, MyFriendUserId);
+        DatabaseReference chatRef = FirebaseDatabase.getInstance().getReference("users").child(MyUserId);
 
-//        Log.d(TAG, "On create chat screen: MyUserId: " + MyUserId);
-//        Log.d(TAG, "On create chat screen: MyFrinedId: " + MyFriendUserId);
-//        TextView textView = (TextView)findViewById(R.id.friend_username_main_chat_screen);
-//        textView.setText(MyFriendUserId);
+        chatRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d(TAG, "@@@@@@@@ OnDataChange called @@@@@@");
+                displayChatMessages(MyUserId, MyFriendUserId);
+            }
 
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d(TAG, "@@@@@@@@ OnCancelled called @@@@@@");
+            }
+        });
+
+
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("chats");
         FloatingActionButton fltBtn = (FloatingActionButton) findViewById(R.id.btn_message_send);
         EditText user_message = (EditText) findViewById(R.id.message_edit_text);
         fltBtn.setOnClickListener(new View.OnClickListener() {
@@ -106,38 +96,21 @@ public class ChatScreen1 extends AppCompatActivity {
                     ChatMessage userChat = new ChatMessage(user_message.getText().toString(),
                             MyUserId, MyFriendUserId);
 
-                    String keyForTwoUsers = helper.generateKeyFromTwoKeys(MyUserId, MyFriendUserId);
-                    Task updateTask = mDatabase.child("chats").child(keyForTwoUsers).push().setValue(userChat);
+                    //String keyForTwoUsers = helper.generateKeyFromTwoKeys(MyUserId, MyFriendUserId);
+                    Task updateTask = mDatabase.child(keyForTwoUsers).push().setValue(userChat);
 
                     Log.d(TAG, "On Click float button: MyUserId: " + MyUserId);
                     Log.d(TAG, "On Click float button: CombinedId: " + keyForTwoUsers);
                     user_message.setText("");
-                }
-
-                else {
-                    Toast.makeText(getApplicationContext(),"Enter a Message",Toast.LENGTH_SHORT);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Enter a Message", Toast.LENGTH_SHORT);
                 }
 
             }
         });
 
-        String keyForTwoUsers = helper.generateKeyFromTwoKeys(MyUserId,MyFriendUserId);
-        DatabaseReference chatRef = FirebaseDatabase.getInstance().getReference("users").child(MyUserId);
-        //displayChatMessages();
 
-        chatRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.d(TAG,"@@@@@@@@ OnDataChange called @@@@@@");
-                displayChatMessages(MyUserId,MyFriendUserId);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.d(TAG,"@@@@@@@@ OnCancelled called @@@@@@");
-            }
-        });
-        }
+    }
 
 
 //      public void displayChatMessages(){
@@ -157,35 +130,37 @@ public class ChatScreen1 extends AppCompatActivity {
 //          Log.d(TAG, "adapter set 4");
 //    }
 
-    public String getLoggedinUserId(){ return MyUserId; }
+    public String getLoggedinUserId() {
+        return MyUserId;
+    }
 
-    public  String getMyFriendUserId(){
+    public String getMyFriendUserId() {
         return MyFriendUserId;
     }
 
 
-    public void displayChatMessages(String myUserId, String myFriendId){
+    public void displayChatMessages(String myUserId, String myFriendId) {
 
         ArrayList<ChatMessage> chats = new ArrayList<ChatMessage>();
-        String combinedKey = helper.generateKeyFromTwoKeys(myUserId,myFriendId);
+        String combinedKey = helper.generateKeyFromTwoKeys(myUserId, myFriendId);
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("chats").child(combinedKey);
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 chats.clear();
-                for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     ChatMessage chat = snapshot.getValue(ChatMessage.class);
-                    Log.d(TAG,"?????????? " +chat.getMessageText() + " ?????????");
+                    Log.d(TAG, "?????????? " + chat.getMessageText() + " ?????????");
                     chats.add(chat);
                 }
 
 
-                for(ChatMessage c: chats){
-                    Log.d(TAG,"--------- "+c.getMessageText()+" -------------" );
+                for (ChatMessage c : chats) {
+                    Log.d(TAG, "--------- " + c.getMessageText() + " -------------");
                 }
 
-                ChatListAdapter messageAdapter = new ChatListAdapter(ChatScreen1.this,chats);
+                ChatListAdapter messageAdapter = new ChatListAdapter(ChatScreen1.this, chats);
                 ListView listView = (ListView) findViewById(R.id.listview_messages);
                 listView.setAdapter(messageAdapter);
 
@@ -197,21 +172,5 @@ public class ChatScreen1 extends AppCompatActivity {
             }
         });
     }
-
-//    public void displayChatMessages(){
-//        ListView ListOfMessages = (ListView) findViewById(R.id.listview_messaged);
-//
-//        FirebaseListAdapter fire_adapter = new FirebaseListAdapter<ChatMessage>(ChatScreen1.this,ChatMessage.class,R.layout.message, FirebaseDatabase.getInstance().getReference()) {
-//            @Override
-//            protected void populateView(View v, ChatMessage model, int position) {
-//
-//                TextView messageText = (TextView) v.findViewById(R.id.messageText);
-//
-//                messageText.setText(model.getMessageText());
-//
-//            }
-//        };
-//
-//        ListOfMessages.setAdapter(fire_adapter);
-//    }
 }
+

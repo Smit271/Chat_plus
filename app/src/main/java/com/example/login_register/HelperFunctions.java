@@ -31,29 +31,5 @@ public class HelperFunctions {
         return email.substring(0,index);
     }
 
-    public String getUnameFromUid(FirebaseUser user){
-
-        //get hashcode of user from auth
-        String currentUserId = user.getUid();
-
-
-        //get reference of firestore database
-        DocumentReference fire_store_ref = FirebaseFirestore.getInstance().collection("users").document(currentUserId);
-
-        //fire a query to find user_name storded in firestore database
-        fire_store_ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()){
-                    currentUname = task.getResult().getString("user_name");
-                }
-                else{
-                    currentUname = "Failed";
-                }
-
-            }
-        });
-        return currentUname;
-    }
 }
 
