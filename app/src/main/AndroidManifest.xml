@@ -41,7 +41,9 @@
         <activity
             android:name=".login"
             android:exported="true"
-            android:label="Login" />
+            android:label="Login" >
+
+        </activity>
 
 
         <activity

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,44 +7,43 @@
     tools:context=".MainActivity"
     android:padding="5dp">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            tools:context=".MainActivity">
+<!--        <RelativeLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:padding="5dp"-->
+<!--            tools:context=".MainActivity">-->
 
             <ImageView
                 android:id="@+id/chat_plus_logo"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="60dp"
-                android:layout_marginBottom="54dp"
                 android:src="@drawable/chat_plus_logo" />
 
+            <TextView
+                android:id="@+id/FromText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FROM We+"
+                android:textColor="@color/primary"
+                android:textSize="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:paddingBottom="20dp"
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/chatbtn1"
+                />
+
+
+            <!--<com.google.android.material.button.MaterialButton
+                android:id="@+id/loginBtn"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
                 android:layout_below="@id/chat_plus_logo"
                 android:layout_marginTop="@dimen/_20sdp"
-                android:text="Chat 1"
-                android:textSize="@dimen/_13ssp"
-                app:cornerRadius="@dimen/_8sdp" />
-
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/loginBtn"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_50sdp"
-                android:layout_below="@id/chatbtn1"
-                android:layout_marginTop="@dimen/_20sdp"
                 android:text="Log in"
                 android:textSize="@dimen/_13ssp"
                 app:cornerRadius="@dimen/_8sdp" />
-
 
 
             <com.google.android.material.button.MaterialButton
@@ -55,8 +54,8 @@
                 android:layout_marginTop="@dimen/_20sdp"
                 android:text="Register"
                 android:textSize="@dimen/_13ssp"
-                app:cornerRadius="@dimen/_8sdp" />
+                app:cornerRadius="@dimen/_8sdp" />-->
 
-        </RelativeLayout>
+<!--        </RelativeLayout>-->
 
-</ScrollView>
+</RelativeLayout>

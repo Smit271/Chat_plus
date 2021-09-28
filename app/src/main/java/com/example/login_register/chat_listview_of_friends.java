@@ -53,12 +53,12 @@ public class chat_listview_of_friends extends AppCompatActivity {
         setContentView(R.layout.activity_chat_listview_of_friends);
 
         FirebaseUser User = FirebaseAuth.getInstance().getCurrentUser();
-        if (User == null) {
-            Toast.makeText(getApplicationContext(), "First Log in", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(chat_listview_of_friends.this, login.class);
-            startActivity(intent);
-        }
-        else {
+//        if (User == null) {
+//            Toast.makeText(getApplicationContext(), "First Log in", Toast.LENGTH_SHORT).show();
+//            Intent intent = new Intent(chat_listview_of_friends.this, login.class);
+//            startActivity(intent);
+//        }
+//        else {
 
             HelperFunctions helper = new HelperFunctions();
 
@@ -196,7 +196,7 @@ public class chat_listview_of_friends extends AppCompatActivity {
             Log.d(TAG, "@@@ After on data change @@@");
 
         }
-    }
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
@@ -205,7 +205,7 @@ public class chat_listview_of_friends extends AppCompatActivity {
     @Override
     public void onBackPressed()
     {
-        startActivity(new Intent(chat_listview_of_friends.this, MainActivity.class));
+        startActivity(new Intent(chat_listview_of_friends.this, home.class));
         finish();
     }
 }
