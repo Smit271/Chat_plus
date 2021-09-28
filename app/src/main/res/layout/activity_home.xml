@@ -21,10 +21,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/add_friend"
-        android:text="Friend_request"
         android:backgroundTint="@color/black"
+        android:text="Friend Request"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        />
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log out"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/friend_request"
         />
 
 </RelativeLayout>

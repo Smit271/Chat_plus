@@ -60,6 +60,7 @@ public class Register_page extends AppCompatActivity {
     // Declaring Instance of Firebase
     private FirebaseAuth mAuth;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -178,6 +179,7 @@ public class Register_page extends AppCompatActivity {
 
                     // Making toast for successfully registration
                     Toast.makeText(getApplicationContext(), "User registered", Toast.LENGTH_LONG).show();
+
                     // Making progressbar invisible after successfully registration
                     progressBar.setVisibility(View.GONE);
                     // After completion redirecting to profile screen

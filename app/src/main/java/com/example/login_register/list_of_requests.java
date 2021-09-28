@@ -160,6 +160,11 @@ public class list_of_requests extends AppCompatActivity {
                             Toast.makeText(view.getContext(), "Request Accepted ", Toast.LENGTH_LONG).show();
                         }
                     });
+                    mref.child(thisuser).child("frineds").child(user_id).child("request_type").setValue("accepted").addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                        }
+                    });
                     mref.child(user_id).child("Request").child(thisuser).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {

@@ -62,12 +62,13 @@ public class AdapterMessage extends FirebaseListAdapter<ChatMessage> {
             can see only message of mine and malav123
              */
 
-            String toUserId = message.getTouserId();
-            String fromUserId = message.getFromUserId();
-            convertView = activity.getLayoutInflater().inflate(R.layout.message, parent, false);
+            String toUserId = message.getSenderId();
+            String fromUserId = message.getReceiverId();
+            convertView = activity.getLayoutInflater().inflate(R.layout.message_received, parent, false);
 
             if (fromUserId.equals(myUserId) && toUserId.equals(myFriendId)){
                 //for Logged in user (me)
+                convertView = activity.getLayoutInflater().inflate(R.layout.message_sent, parent, false);
                 Log.d(TAG,"Me, In getView "+myUserId);
 
                 TextView mUser = (TextView) convertView.findViewById(R.id.message_user);
@@ -78,16 +79,12 @@ public class AdapterMessage extends FirebaseListAdapter<ChatMessage> {
                 mText.setText(message.getMessageText());
                 mTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)", message.getMessageTime()));
 
-                mUser.setGravity(Gravity.RIGHT);
-                mText.setGravity(Gravity.RIGHT);
-                mTime.setGravity(Gravity.RIGHT);
-
             }
 
             //Show friend message to me
             else if (toUserId.equals(myUserId) && fromUserId.equals(myFriendId)){
                 Log.d(TAG,"Friend, In getView "+myFriendId);
-
+                convertView = activity.getLayoutInflater().inflate(R.layout.message_received, parent, false);
                 TextView mUser = (TextView) convertView.findViewById(R.id.message_user);
                 TextView mText = (TextView) convertView.findViewById(R.id.message_text);
                 TextView mTime = (TextView) convertView.findViewById(R.id.message_time);
@@ -96,9 +93,6 @@ public class AdapterMessage extends FirebaseListAdapter<ChatMessage> {
                 mText.setText(message.getMessageText());
                 mTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)", message.getMessageTime()));
 
-                mUser.setGravity(Gravity.LEFT);
-                mText.setGravity(Gravity.LEFT);
-                mTime.setGravity(Gravity.LEFT);
             }
             else
                 Log.d(TAG,"opps no condition ran$$$$$$");
@@ -109,10 +103,10 @@ public class AdapterMessage extends FirebaseListAdapter<ChatMessage> {
         return convertView;
     }
 
-    //Total no of types of item here we have 2 (sender & receiver)
+//    //Total no of types of item here we have 2 (sender & receiver)
 //    @Override
 //    public int getViewTypeCount() {
-//        return 1;
+//        return 2;
 //    }
 //
 //    //to distiguish between sender & receiver

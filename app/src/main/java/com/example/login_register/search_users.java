@@ -38,6 +38,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.example.login_register.HelperFunctions;
 
 public class search_users extends AppCompatActivity {
 
@@ -59,15 +60,20 @@ public class search_users extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mref = FirebaseDatabase.getInstance().getReference("users");
-        u_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DocumentReference dref = fstore.collection("users").document(u_id);
-        dref.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                user_id = value.getString("user_name");
-                System.out.println("MY ID ((((((((((((((((((((((((((((((((((((((((((( :" + user_id);
-            }
-        });
+//        u_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+//        DocumentReference dref = fstore.collection("users").document(u_id);
+//
+//        dref.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+//                user_id = value.getId();
+//                System.out.println("MY ID ((((((((((((((((((((((((((((((((((((((((((( :" + user_id);
+//            }
+//        });
+
+        String MyEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        user_id = HelperFunctions.getUseridFromEmail(MyEmail);
+        System.out.println("MY ID ((((((((((((((((((((((((((((((((((((((((((( :" + user_id);
 
 
         list = (RecyclerView) findViewById(R.id.list);
