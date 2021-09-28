@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -43,6 +44,7 @@ public class list_of_requests extends AppCompatActivity {
     static DatabaseReference mref;
     private RecyclerView request_list;
     static String user_id, MyEmail;
+    TextView no_data_found;
 
     FirebaseAuth mAuth;
 
@@ -51,6 +53,7 @@ public class list_of_requests extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_of_requests);
 
+        no_data_found = (TextView) findViewById(R.id.no_data_found);
         mAuth = FirebaseAuth.getInstance();
 
         MyEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
@@ -67,7 +70,7 @@ public class list_of_requests extends AppCompatActivity {
 
             }
         });
-        System.out.println("MY ID ((((((((((((((((((((((((((((((((((((((((((( :" + user_id);
+//        System.out.println("MY ID ((((((((((((((((((((((((((((((((((((((((((( :" + user_id);
 
         request_list = (RecyclerView) findViewById(R.id.request_list);
         mref = FirebaseDatabase.getInstance().getReference("users");
@@ -79,7 +82,6 @@ public class list_of_requests extends AppCompatActivity {
     private void readData(DataSnapshot snapshot) {
         if (snapshot.exists()) {
             ArrayList<String> listusers = new ArrayList<>();
-            ArrayList<String> final_requests = new ArrayList<>();
 
             for (DataSnapshot ds : snapshot.getChildren()) {
                 String name_of_request = ds.getKey();
@@ -90,7 +92,8 @@ public class list_of_requests extends AppCompatActivity {
             CustomAdapter arrayAdapter = new CustomAdapter(listusers);
             request_list.setAdapter(arrayAdapter);
         } else {
-            Log.d("users77777777777777777777777777777777777777777777777777777777777777777777", "No data available");
+            no_data_found.setVisibility(View.VISIBLE);
+//            Log.d("users77777777777777777777777777777777777777777777777777777777777777777777", "No data available");
         }
     }
 
@@ -110,11 +113,9 @@ public class list_of_requests extends AppCompatActivity {
             public ViewHolder(View view) {
                 super(view);
                 // Define click listener for the ViewHolder's View
-
                 name = (TextView) view.findViewById(R.id.name);
                 item_btn_accept = (Button) view.findViewById(R.id.item_btn_accept);
                 item_btn_decline = (Button) view.findViewById(R.id.item_btn_decline);
-
             }
 
         }
@@ -142,11 +143,12 @@ public class list_of_requests extends AppCompatActivity {
         // Replace the contents of a view (invoked by the layout manager)
         @Override
         public void onBindViewHolder(list_of_requests.CustomAdapter.ViewHolder viewHolder, @SuppressLint("RecyclerView") final int position) {
-
-
             String thisuser = localDataSet.get(position);
-            viewHolder.name.setText(thisuser);
-            Log.d("#####################################################", thisuser);
+            if (!localDataSet.isEmpty()) {
+                viewHolder.name.setText(thisuser);
+//                Log.d("#####################################################", thisuser);
+            }
+
             viewHolder.item_btn_accept.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -154,8 +156,14 @@ public class list_of_requests extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             Toast.makeText(view.getContext(), "Request Accepted ", Toast.LENGTH_LONG).show();
+                            viewHolder.name.setVisibility(view.GONE);
+                            viewHolder.item_btn_accept.setVisibility(View.GONE);
+                            viewHolder.item_btn_decline.setVisibility(View.GONE);
                         }
                     });
+                    if (localDataSet.isEmpty()) {
+
+                    }
                     mref.child(thisuser).child("frineds").child(user_id).child("request_type").setValue("accepted").addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -164,7 +172,6 @@ public class list_of_requests extends AppCompatActivity {
                     mref.child(user_id).child("Request").child(thisuser).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            viewHolder.item_btn_decline.setBackgroundColor(0xFF000000);
                         }
                     });
                 }
@@ -175,8 +182,10 @@ public class list_of_requests extends AppCompatActivity {
                     mref.child(user_id).child("Request").child(thisuser).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            viewHolder.item_btn_decline.setBackgroundColor(0xFF000000);
                             Toast.makeText(view.getContext(), "Request Declined ", Toast.LENGTH_LONG).show();
+                            viewHolder.name.setVisibility(view.GONE);
+                            viewHolder.item_btn_accept.setVisibility(View.GONE);
+                            viewHolder.item_btn_decline.setVisibility(View.GONE);
                         }
                     });
                 }

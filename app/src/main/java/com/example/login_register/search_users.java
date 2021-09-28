@@ -38,16 +38,17 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.example.login_register.HelperFunctions;
 
 public class search_users extends AppCompatActivity {
 
-    static String friend_id, user_id,MyEmail;
-    public static Boolean currentState = false;
+    static String friend_id, user_id, MyEmail;
+    static String currentState;
 
     static DatabaseReference mref;
     FirebaseAuth mAuth;
-    
+
     private RecyclerView list;
     private AutoCompleteTextView txtsearch;
 
@@ -61,8 +62,7 @@ public class search_users extends AppCompatActivity {
 
         String MyEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         user_id = HelperFunctions.getUseridFromEmail(MyEmail);
-        System.out.println("MY ID ((((((((((((((((((((((((((((((((((((((((((( :" + user_id);
-
+//        System.out.println("MY ID ((((((((((((((((((((((((((((((((((((((((((( :" + user_id);
 
         list = (RecyclerView) findViewById(R.id.list);
         txtsearch = (AutoCompleteTextView) findViewById(R.id.txtsearch);
@@ -99,6 +99,7 @@ public class search_users extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                     String selection = adapterView.getItemAtPosition(position).toString();
                     searchUser(selection);
+
                 }
             });
         } else {
@@ -122,37 +123,35 @@ public class search_users extends AppCompatActivity {
                                 ds.child("hash_id").getValue(String.class));
                         listusers.add(user);
                         friend_id = ds.getKey();
+
+                        DatabaseReference r = FirebaseDatabase.getInstance().getReference("users").child(friend_id).child("Request").child(user_id);
+                        r.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                String c = snapshot.child("request_type").getValue(String.class);
+//                                System.out.println("MY ID ((((((((((((((((((((((((((((((((((((((((((( :" + c);
+                                if (c != null) {
+                                    currentState = (String) snapshot.child("request_type").getValue(String.class);
+                                } else {
+                                    currentState = "not_received";
+//                                    System.out.println("MY ID ((((((((((((((((((((((((((((((((((((((((((( :" + snapshot.child("request_type").getValue(String.class));
+                                }
+                                System.out.println("MY ID ((((((((((((((((((((((((((((((((((((((((((( :" + currentState);
+                                CustomAdapter arrayAdapter = new CustomAdapter(listusers);
+                                list.setAdapter(arrayAdapter);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
                     }
 
 
-//                    ArrayAdapter arrayAdapter = new ArrayAdapter(getApplicationContext(), android.R.layout.simple_list_item_1,listusers);
-                    CustomAdapter arrayAdapter = new CustomAdapter(listusers);
-                    list.setAdapter(arrayAdapter);
                 } else {
                     Log.d("users", "No data found");
                 }
-
-//                mref.child(friend_id).child("Request").addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                        try {
-//                            String s = snapshot.child(user_id).getKey();
-//                            if (s.equals(user_id)){
-//                                String request = snapshot.child(user_id).child("request_type").getValue().toString();
-//                                currentState = true;
-//                            }
-//                        }
-//                        catch (Exception e){
-//                            currentState = false;
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError error) {
-//
-//                    }
-//                });
-
 
             }
 
@@ -186,7 +185,6 @@ public class search_users extends AppCompatActivity {
                 item_btn = (Button) view.findViewById(R.id.item_btn);
 
             }
-
         }
 
         /**
@@ -212,46 +210,49 @@ public class search_users extends AppCompatActivity {
         // Replace the contents of a view (invoked by the layout manager)
         @Override
         public void onBindViewHolder(ViewHolder viewHolder, @SuppressLint("RecyclerView") final int position) {
-
+            System.out.println("gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg" + user_id + " " + friend_id + " " + (user_id.equals(friend_id)));
+            if (user_id.equals(friend_id)) {
+                System.out.println("Hello");
+                viewHolder.item_btn.setVisibility(View.INVISIBLE);
+            }
+            else {
+                if (currentState.equals("not_received")) {
+                    viewHolder.item_btn.setText("Add Friend");
+                }
+                else if (currentState.equals("received")) {
+                    viewHolder.item_btn.setText("Cancel Request");
+                    viewHolder.item_btn.setBackgroundColor(0xFFD40000);
+                }
+            }
 
             dataHandler thisuser = localDataSet.get(position);
             viewHolder.name.setText(thisuser.getName());
             viewHolder.email.setText(thisuser.getEmail());
-//            viewHolder.item_btn.setEnabled(false);
+
             viewHolder.item_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // add friend request
-                    if (currentState) {
+                    if (currentState.equals("not_received")) {
                         mref.child(friend_id).child("Request").child(user_id).child("request_type").setValue("received").addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-//                            viewHolder.item_btn.setEnabled(true);
                                 viewHolder.item_btn.setText("Cancel Request");
                                 viewHolder.item_btn.setBackgroundColor(0xFFD40000);
-                                currentState = false;
 
                             }
                         });
-                    }
-
-                    if (!currentState) {
+                    } else if (currentState.equals("received")) {
                         mref.child(friend_id).child("Request").child(user_id).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-//                            viewHolder.item_btn.setEnabled(true);
                                 viewHolder.item_btn.setText("Add Friend");
                                 viewHolder.item_btn.setBackgroundColor(0xFF000000);
-                                currentState = true ;
-
                             }
                         });
                     }
-
                 }
             });
         }
-
 
 
         // Return the size of your dataset (invoked by the layout manager)
