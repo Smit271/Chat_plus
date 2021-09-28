@@ -15,25 +15,17 @@
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/chat_plus_logo" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/chatbtn1"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_50sdp"
-                android:layout_below="@id/chat_plus_logo"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:text="Chat 1"
-                android:textSize="@dimen/_13ssp"
-                app:cornerRadius="@dimen/_8sdp" />
-
             <TextView
                 android:id="@+id/FromText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="FROM We+"
-                android:textColor="@color/primary"
-                android:textSize="40dp"
+                android:text="Project of MAD"
+                android:textColor="@color/secondary_text"
+                android:textSize="18dp"
                 android:layout_centerHorizontal="true"
                 android:layout_alignParentBottom="true"
+                android:layout_below="@id/chat_plus_logo"
+                android:gravity="bottom"
                 android:paddingBottom="20dp"
                 />
 

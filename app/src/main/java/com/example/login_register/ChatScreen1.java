@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.text.Editable;
@@ -171,6 +172,18 @@ public class ChatScreen1 extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
+    }
+    @Override
+    public void onBackPressed()
+    {
+        startActivity(new Intent(ChatScreen1.this, chat_listview_of_friends.class));
+        finish();
     }
 }
 

@@ -137,6 +137,8 @@ public class search_users extends AppCompatActivity {
 //                                    System.out.println("MY ID ((((((((((((((((((((((((((((((((((((((((((( :" + snapshot.child("request_type").getValue(String.class));
                                 }
                                 System.out.println("MY ID ((((((((((((((((((((((((((((((((((((((((((( :" + currentState);
+                                CustomAdapter arrayAdapter = new CustomAdapter(listusers);
+                                list.setAdapter(arrayAdapter);
                             }
 
                             @Override
@@ -144,11 +146,9 @@ public class search_users extends AppCompatActivity {
 
                             }
                         });
-
                     }
 
-                    CustomAdapter arrayAdapter = new CustomAdapter(listusers);
-                    list.setAdapter(arrayAdapter);
+
                 } else {
                     Log.d("users", "No data found");
                 }
@@ -214,15 +214,16 @@ public class search_users extends AppCompatActivity {
             if (user_id.equals(friend_id)) {
                 System.out.println("Hello");
                 viewHolder.item_btn.setVisibility(View.INVISIBLE);
-            } else {
+            }
+            else {
                 if (currentState.equals("not_received")) {
                     viewHolder.item_btn.setText("Add Friend");
-                } else if (currentState.equals("received")) {
+                }
+                else if (currentState.equals("received")) {
                     viewHolder.item_btn.setText("Cancel Request");
                     viewHolder.item_btn.setBackgroundColor(0xFFD40000);
                 }
             }
-
 
             dataHandler thisuser = localDataSet.get(position);
             viewHolder.name.setText(thisuser.getName());

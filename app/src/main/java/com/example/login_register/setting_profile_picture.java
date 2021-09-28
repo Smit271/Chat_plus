@@ -63,33 +63,6 @@ public class setting_profile_picture extends AppCompatActivity {
 
         mProfile = findViewById(R.id.profile_picture);
         mRegister = findViewById(R.id.registerBtn);
-
-        // Code to get user's detail from Firebase FireStore...
-//        // Creating instance of FirebaseFireStore
-//        fstore = FirebaseFirestore.getInstance();
-//
-//        DocumentReference docRef = fstore.collection("users").document(uid);
-//        Task<DocumentSnapshot> documentSnapshotTask = docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//            private static final String TAG = "k";
-//
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    DocumentSnapshot document = task.getResult();
-//                    if (document.exists()) {
-//                        Log.d(TAG, "User data: " + document.getData());
-//                        String email = (String) document.get("email");
-//                        Toast.makeText(getApplicationContext(), email, Toast.LENGTH_LONG).show();
-//
-//                    } else {
-//                        Log.d(TAG, "No such user");
-//                    }
-//                } else {
-//                    Log.d(TAG, "get failed with ", task.getException());
-//                }
-//            }
-//        });
-
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -135,18 +108,6 @@ public class setting_profile_picture extends AppCompatActivity {
         String user_id = helperFunctions.getUseridFromEmail(email);
 
         StorageReference fileRef = storageReference.child(user_id);
-//        fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//            @Override
-//            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                Toast.makeText(setting_profile_picture.this, "Profile picture set", Toast.LENGTH_LONG).show();
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull @NotNull Exception e) {
-//                Toast.makeText(setting_profile_picture.this, "Failed to set", Toast.LENGTH_LONG).show();
-//            }
-//        });
-
 
         Bitmap bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
