@@ -10,9 +10,18 @@
         android:id="@+id/add_friend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add a frined"
+        android:text="Add a friend"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        />
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log out"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/add_friend"
         />
 
 </RelativeLayout>

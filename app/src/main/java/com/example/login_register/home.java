@@ -1,6 +1,7 @@
 package com.example.login_register;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -22,13 +24,27 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class home extends AppCompatActivity {
 
     private static final String TAG = "Kinetic";
-    Button Addfriend;
+    Button Addfriend, mLogout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
         Addfriend = findViewById(R.id.add_friend);
+        mLogout = findViewById(R.id.logout);
+
+        String name = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+
+        ActionBar actionBar = getSupportActionBar();
+        if (name == null){
+            actionBar.setTitle("Welcome");
+        }
+        else{
+            actionBar.setTitle("Welcome " + name);
+        }
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
+
         Addfriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -37,5 +53,26 @@ public class home extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        mLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(home.this, MainActivity.class);
+                // start the activity connect to the specified class
+                startActivity(intent);
+            }
+        });
+    }
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
+    }
+    @Override
+    public void onBackPressed()
+    {
+        startActivity(new Intent(home.this, MainActivity.class));
+        finish();
     }
 }
