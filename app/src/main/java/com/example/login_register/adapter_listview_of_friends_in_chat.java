@@ -1,6 +1,7 @@
 package com.example.login_register;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +12,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class adapter_listview_of_friends_in_chat extends ArrayAdapter <SingleFriend> {
 
-    public adapter_listview_of_friends_in_chat(Activity context, ArrayList <SingleFriend> Friends){
+   private chat_listview_of_friends activity;
+
+    public adapter_listview_of_friends_in_chat(chat_listview_of_friends context, ArrayList <SingleFriend> Friends){
         super(context,0,Friends);
+        activity = context;
     }
 
     @NonNull
@@ -40,9 +48,24 @@ public class adapter_listview_of_friends_in_chat extends ArrayAdapter <SingleFri
         funame.setText(friend.getUsername());
         //set profile image
         ImageView fprofile_image = (ImageView) listItemView.findViewById(R.id.profile_picture);
-        //fprofile_image.setImageResource(friend.getProfile_image_id());
-        fprofile_image.setImageBitmap(friend.getProfilePictureBitmap());
 
+        Bitmap bitProfile = friend.getProfilePictureBitmap();
+//        if (bitProfile == null){
+//            fprofile_image.setImageResource(friend.getProfile_image_id());
+//        }
+//        else {
+//            fprofile_image.setImageBitmap(bitProfile);
+//        }
+
+        if (friend.getProfile_image_id() == 0){
+        String uri = friend.getUri();
+        //Picasso.get().load(uri).networkPolicy(NetworkPolicy.OFFLINE).into(fprofile_image);}
+        Glide.with(activity).load(uri.toString()).into(fprofile_image);
+        }
+
+        else{
+            fprofile_image.setImageResource(friend.getProfile_image_id());
+        }
         return listItemView;
     }
 }

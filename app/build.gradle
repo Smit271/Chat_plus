@@ -57,4 +57,17 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:21.0.1'
     implementation 'com.firebaseui:firebase-ui:0.6.0'
     implementation 'com.firebase:firebase-client-android:2.5.0'
+
+    //To cache the image
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
+
+    implementation ("com.github.bumptech.glide:glide:4.11.0") {
+        exclude group: "com.android.support"
+    }
+
+    //noinspection GradleCompatible
+    implementation "com.android.support:support-fragment:26.1.0"
+
 }
