@@ -9,45 +9,59 @@
 
 
     <com.google.android.material.button.MaterialButton
-        android:layout_centerVertical="true"
         android:id="@+id/chatbtn1"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_50sdp"
-        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_centerHorizontal="true"
         android:text="Chat 1"
-        android:textSize="@dimen/_13ssp"
-        app:cornerRadius="@dimen/_8sdp" />
+        android:textSize="18sp"
+        app:cornerRadius="8dp" />
 
-    <Button
-        android:layout_below="@+id/chatbtn1"
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/add_friend"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add a frined"
         android:backgroundTint="@color/primary"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_below="@+id/chatbtn1"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginEnd="30dp"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        />
+        android:text="Add a friend"
+        android:textSize="18sp"
+        app:cornerRadius="8dp" />
 
-    <Button
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/friend_request"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/add_friend"
         android:backgroundTint="@color/primary"
-        android:text="Friend Request"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        />
+        android:layout_below="@+id/add_friend"
+        android:text="Friend Requests"
+        android:textSize="18sp"
+        app:cornerRadius="8dp" />
 
-    <Button
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/logout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Log out"
-        android:layout_marginTop="15dp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/friend_request"
-        />
+        android:layout_below="@+id/friend_request"
+        android:text="Logout"
+        android:textSize="18sp"
+        app:cornerRadius="8dp" />
 
 </RelativeLayout>
