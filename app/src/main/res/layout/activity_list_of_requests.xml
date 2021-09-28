@@ -6,16 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".list_of_requests">
 
-
-<!--    <ListView-->
-<!--        android:id="@+id/request_list"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_margin="20dp"-->
-<!--        android:padding="10dp"-->
-<!--        android:background="@color/gray"-->
-<!--        />-->
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/request_list"
         android:layout_width="match_parent"
@@ -24,4 +14,14 @@
         android:padding="10dp"
         android:background="@color/gray"/>
 
+    <TextView
+        android:id="@+id/no_data_found"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="No data found"
+        android:textSize="30dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:visibility="invisible"
+        />
 </RelativeLayout>

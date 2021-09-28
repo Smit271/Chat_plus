@@ -36,5 +36,5 @@
         android:gravity="right"
         android:layout_alignParentRight="true"
         android:backgroundTint="@color/black"
-        android:text="Add friend" />
+        android:text="Add frieeeend" />
 </RelativeLayout>
