@@ -15,16 +15,6 @@
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/chat_plus_logo" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/chatbtn1"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_50sdp"
-                android:layout_below="@id/chat_plus_logo"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:text="Chat 1"
-                android:textSize="@dimen/_13ssp"
-                app:cornerRadius="@dimen/_8sdp" />
-
             <TextView
                 android:id="@+id/FromText"
                 android:layout_width="wrap_content"

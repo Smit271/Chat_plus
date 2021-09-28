@@ -24,17 +24,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add a frined"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@color/primary"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         />
 
     <Button
         android:id="@+id/friend_request"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/add_friend"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@color/primary"
         android:text="Friend Request"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
