@@ -1,44 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="10dp"
-    android:layout_margin="10dp">
 
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:textSize="16dp"
-        android:textStyle="bold"
-        android:text="Name"
-        android:textColor="@color/primary_text"
-        />
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:padding="5dp"
+        android:background="@color/white">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/item_btn_accept"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginLeft="50dp"
-        android:layout_toRightOf="@+id/name"
-        android:text="Accept"
-        app:cornerRadius="8dp"
-        android:textSize="10dp"
-        android:backgroundTint="@color/accept_btn"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="10dp">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/item_btn_decline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginLeft="35dp"
-        android:layout_toRightOf="@+id/item_btn_accept"
-        android:text="Decline"
-        app:cornerRadius="8dp"
-        android:textSize="10dp"
-        android:backgroundTint="@color/decline_btn"/>
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="12dp"
+                android:text="Name"
+                android:textColor="@color/primary_text"
+                android:textSize="16dp"
+                android:textStyle="bold" />
 
-</RelativeLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/item_btn_accept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60dp"
+                android:layout_toRightOf="@+id/name"
+                android:backgroundTint="@color/accept_btn"
+                android:gravity="center"
+                android:text="Accept"
+                android:textSize="10dp"
+                app:cornerRadius="8dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/item_btn_decline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@+id/item_btn_accept"
+                android:backgroundTint="@color/decline_btn"
+                android:gravity="center"
+                android:text="Decline"
+                android:textSize="10dp"
+                app:cornerRadius="8dp" />
+
+        </RelativeLayout>
+    </ScrollView>

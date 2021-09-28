@@ -4,7 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Chat_plus/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.2601851851851852" />
+        <entry key="..\:/Chat_plus/app/src/main/res/drawable/main_logo.xml" value="0.2601851851851852" />
         <entry key="..\:/Chat_plus/app/src/main/res/layout/activity_home.xml" value="0.25416666666666665" />
+        <entry key="..\:/Chat_plus/app/src/main/res/layout/activity_list_of_requests.xml" value="0.25416666666666665" />
         <entry key="..\:/Chat_plus/app/src/main/res/layout/activity_login.xml" value="0.2" />
         <entry key="..\:/Chat_plus/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Chat_plus/app/src/main/res/layout/activity_register_page.xml" value="0.2" />
