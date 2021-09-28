@@ -53,14 +53,7 @@ public class chat_listview_of_friends extends AppCompatActivity {
         setContentView(R.layout.activity_chat_listview_of_friends);
 
         FirebaseUser User = FirebaseAuth.getInstance().getCurrentUser();
-//        if (User == null) {
-//            Toast.makeText(getApplicationContext(), "First Log in", Toast.LENGTH_SHORT).show();
-//            Intent intent = new Intent(chat_listview_of_friends.this, login.class);
-//            startActivity(intent);
-//        }
-//        else {
-
-            HelperFunctions helper = new HelperFunctions();
+        HelperFunctions helper = new HelperFunctions();
 
 
             //fetch current User Id
@@ -72,31 +65,6 @@ public class chat_listview_of_friends extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
 
-            //set toolbar
-            //get hashid of user from auth
-//        String MyHashId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-//
-//        //get reference of firestore database
-//        DocumentReference fire_store_ref = FirebaseFirestore.getInstance().collection("users").document(MyHashId);
-//
-//        //fire a query to find user_name storded in firestore database
-//        fire_store_ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                if (task.isSuccessful()){
-//                    MyUserId = task.getResult().getString("user_name");
-//                    Log.d(TAG,"Before Actionbar - Usrname: "+MyUserId);
-
-//                }
-//                else{
-//                    MyUserId = "Failed";
-//                }
-//
-//            }
-//        });
-
-            //This is list of my friends which should be fectched from database
-            //ArrayList<String> myFriendUnames = new ArrayList<String>();
 
             //fetch my friends only
             Log.d(TAG, "@@@ before on data change @@@");
@@ -112,6 +80,7 @@ public class chat_listview_of_friends extends AppCompatActivity {
 
 
                     Log.d(TAG, "MyFriendUnames size " + myFriendUnames.size());
+
                     //This is list of objects to of SingleFriend to pass in array adapter
                     //Profile Image should be come from database using user id
                     ArrayList<SingleFriend> singleFriends = new ArrayList<SingleFriend>();
@@ -133,7 +102,7 @@ public class chat_listview_of_friends extends AppCompatActivity {
                                     //((ImageView) findViewById(R.id.test_image)).setImageBitmap(bitmap);
                                     Log.d(TAG, "bitmap retrived " + bitmap.toString());
                                     singleFriends.add(new SingleFriend(myFriendUnames.get(finalI), R.drawable.ic_launcher_foreground, bitmap));
-                                    Log.d(TAG, "Fetch: ////////// " + myFriendUnames.get(finalI) + " ////////////");
+                                    Log.d(TAG, "Fetched:"+ finalI +" ////////// " + myFriendUnames.get(finalI) + " ////////////");
 
                                     if (finalI == finalSize - 1) {
                                         //create adapter
@@ -141,8 +110,6 @@ public class chat_listview_of_friends extends AppCompatActivity {
                                         adapter_listview_of_friends_in_chat singleFriendAdapter = new adapter_listview_of_friends_in_chat(chat_listview_of_friends.this, singleFriends);
 
                                         //find the view where this adapter will throw the list of single friends
-
-
                                         friendListView.setAdapter(singleFriendAdapter);
 
 
@@ -156,6 +123,7 @@ public class chat_listview_of_friends extends AppCompatActivity {
                             });
 
                         } catch (IOException e) {
+                            //Log.d(TAG,"No Picture Found of "+  +"!!!!!!!!!!!!!!!!!!!!!!!!");
                             e.printStackTrace();
                         }
 
