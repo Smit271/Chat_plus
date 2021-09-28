@@ -35,14 +35,15 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.login_register.HelperFunctions;
+
 public class list_of_requests extends AppCompatActivity {
 
 
     static DatabaseReference mref;
     private RecyclerView request_list;
-    static String u_id, user_id;
+    static String user_id, MyEmail;
 
-    FirebaseFirestore fstore = FirebaseFirestore.getInstance();
     FirebaseAuth mAuth;
 
     @Override
@@ -51,27 +52,22 @@ public class list_of_requests extends AppCompatActivity {
         setContentView(R.layout.activity_list_of_requests);
 
         mAuth = FirebaseAuth.getInstance();
-        u_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DocumentReference dref = fstore.collection("users").document(u_id);
-        dref.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+
+        MyEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        user_id = HelperFunctions.getUseridFromEmail(MyEmail);
+        DatabaseReference r = FirebaseDatabase.getInstance().getReference("users").child(user_id).child("Request");
+        r.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                user_id = value.getString("user_name");
-                DatabaseReference r = FirebaseDatabase.getInstance().getReference("users").child(user_id).child("Request");
-                r.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        readData(snapshot);
-                    }
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                readData(snapshot);
+            }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-                    }
-                });
-                System.out.println("MY ID ((((((((((((((((((((((((((((((((((((((((((( :" + user_id);
             }
         });
+        System.out.println("MY ID ((((((((((((((((((((((((((((((((((((((((((( :" + user_id);
 
         request_list = (RecyclerView) findViewById(R.id.request_list);
         mref = FirebaseDatabase.getInstance().getReference("users");
@@ -109,7 +105,7 @@ public class list_of_requests extends AppCompatActivity {
          */
         public static class ViewHolder extends RecyclerView.ViewHolder {
             TextView name;
-            Button item_btn_accept,item_btn_decline;
+            Button item_btn_accept, item_btn_decline;
 
             public ViewHolder(View view) {
                 super(view);
@@ -150,7 +146,7 @@ public class list_of_requests extends AppCompatActivity {
 
             String thisuser = localDataSet.get(position);
             viewHolder.name.setText(thisuser);
-            Log.d("#####################################################",thisuser);
+            Log.d("#####################################################", thisuser);
             viewHolder.item_btn_accept.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -179,7 +175,7 @@ public class list_of_requests extends AppCompatActivity {
                     mref.child(user_id).child("Request").child(thisuser).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                                viewHolder.item_btn_decline.setBackgroundColor(0xFF000000);
+                            viewHolder.item_btn_decline.setBackgroundColor(0xFF000000);
                             Toast.makeText(view.getContext(), "Request Declined ", Toast.LENGTH_LONG).show();
                         }
                     });

@@ -42,14 +42,12 @@ import com.example.login_register.HelperFunctions;
 
 public class search_users extends AppCompatActivity {
 
-    static String friend_id, user_id, u_id;
+    static String friend_id, user_id,MyEmail;
     public static Boolean currentState = false;
 
     static DatabaseReference mref;
     FirebaseAuth mAuth;
-
-    FirebaseFirestore fstore = FirebaseFirestore.getInstance();
-
+    
     private RecyclerView list;
     private AutoCompleteTextView txtsearch;
 
@@ -60,16 +58,6 @@ public class search_users extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mref = FirebaseDatabase.getInstance().getReference("users");
-//        u_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
-//        DocumentReference dref = fstore.collection("users").document(u_id);
-//
-//        dref.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-//                user_id = value.getId();
-//                System.out.println("MY ID ((((((((((((((((((((((((((((((((((((((((((( :" + user_id);
-//            }
-//        });
 
         String MyEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         user_id = HelperFunctions.getUseridFromEmail(MyEmail);
