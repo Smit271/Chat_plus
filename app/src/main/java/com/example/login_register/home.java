@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.fasterxml.jackson.core.util.VersionUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -69,11 +70,22 @@ public class home extends AppCompatActivity {
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
                 Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(home.this, MainActivity.class);
+                Intent intent = new Intent(home.this, login.class);
                 // start the activity connect to the specified class
                 startActivity(intent);
             }
         });
+
+        /// By Karm Start
+        Button mChat = (Button) findViewById(R.id.chatbtn1);
+        mChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(home.this,chat_listview_of_friends.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override

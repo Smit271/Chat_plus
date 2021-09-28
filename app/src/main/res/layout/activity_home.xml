@@ -4,11 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".home">
+    tools:context=".home"
+    >
+
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_centerVertical="true"
+        android:id="@+id/chatbtn1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:text="Chat 1"
+        android:textSize="@dimen/_13ssp"
+        app:cornerRadius="@dimen/_8sdp" />
 
     <Button
+        android:layout_below="@+id/chatbtn1"
         android:id="@+id/add_friend"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add a frined"
         android:backgroundTint="@color/black"
@@ -29,7 +42,7 @@
 
     <Button
         android:id="@+id/logout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Log out"
         android:layout_marginTop="15dp"
