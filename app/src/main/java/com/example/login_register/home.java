@@ -23,16 +23,27 @@ public class home extends AppCompatActivity {
 
     private static final String TAG = "Kinetic";
     Button Addfriend;
+    Button friend_request;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
         Addfriend = findViewById(R.id.add_friend);
+        friend_request = findViewById(R.id.friend_request);
         Addfriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(home.this, search_users.class);
+                // start the activity connect to the specified class
+                startActivity(intent);
+            }
+        });
+
+        friend_request.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(home.this, list_of_requests.class);
                 // start the activity connect to the specified class
                 startActivity(intent);
             }
