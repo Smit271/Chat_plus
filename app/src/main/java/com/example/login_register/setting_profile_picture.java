@@ -66,7 +66,7 @@ public class setting_profile_picture extends AppCompatActivity {
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(setting_profile_picture.this, home.class);
+                Intent intent = new Intent(setting_profile_picture.this, chat_listview_of_friends.class);
                 startActivity(intent);
             }
         });
