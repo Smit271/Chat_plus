@@ -7,7 +7,7 @@
     <application
         android:allowBackup="true"
         android:appComponentFactory="whateverString"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/app_logo"
         android:label="Chat Plus"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -45,7 +45,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="Chat+">
+            android:label="Chat Plus">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
