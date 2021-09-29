@@ -9,6 +9,6 @@
         />
 
     <solid
-        android:color="@color/light_right_background"
+        android:color="@color/primary"
         />
 </shape>
