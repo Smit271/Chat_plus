@@ -7,9 +7,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,11 +14,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -32,16 +24,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
-
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class chat_listview_of_friends extends AppCompatActivity {
@@ -60,6 +44,7 @@ public class chat_listview_of_friends extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_listview_of_friends);
 
+
         FirebaseUser User = FirebaseAuth.getInstance().getCurrentUser();
 
         HelperFunctions helper = new HelperFunctions();
@@ -67,8 +52,6 @@ public class chat_listview_of_friends extends AppCompatActivity {
         //set adapter
         friendListView = (ListView) findViewById(R.id.listview_friends_chat);
         adapter_listview_of_friends_in_chat singleFriendAdapter = new adapter_listview_of_friends_in_chat(chat_listview_of_friends.this, singleFriends);
-
-        //find the view where this adapter will throw the list of single friends
         friendListView.setAdapter(singleFriendAdapter);
 
 
@@ -94,8 +77,6 @@ public class chat_listview_of_friends extends AppCompatActivity {
                 for (DataSnapshot snap : snapshot.getChildren()) {
                     myFriendUnames.add(snap.getKey().toString());
                     Log.d(TAG, "Key +++++++ " + snap.getKey() + "++++++++++");
-
-                    //here I am adding items to list adapter
                 }
 
 
@@ -112,17 +93,10 @@ public class chat_listview_of_friends extends AppCompatActivity {
                         @Override
                         public void onSuccess(Uri uri) {
                             Log.d(TAG, myFriendUnames.get(finalI)+": " + uri.toString());
-//                                ImageView fprofile_image = (ImageView) findViewById(R.id.test_image);
-                            //Picasso.get().load(uri.toString()).into(fprofile_image);
-
                             singleFriends.add(new SingleFriend(myFriendUnames.get(finalI), 0, null, uri.toString()));
-
                             singleFriendAdapter.notifyDataSetChanged();
+                            Log.d(TAG,myFriendUnames.get(finalI) + " Notified!");
 
-                            Log.d(TAG,finalI+" Just Before if......");
-//                                if (finalI == (myFriendUnames.size()-1)){
-//                                    addListAdapter();
-//                                }
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -130,10 +104,7 @@ public class chat_listview_of_friends extends AppCompatActivity {
                             Log.d(TAG, "Failed to get Image of "+myFriendUnames.get(finalI));
                             singleFriends.add(new SingleFriend(myFriendUnames.get(finalI), R.drawable.ic_launcher_foreground, null, null));
                             singleFriendAdapter.notifyDataSetChanged();
-
-//                                if (finalI == (myFriendUnames.size()-1)){
-//                                    addListAdapter();
-//                                }
+                            Log.d(TAG,myFriendUnames.get(finalI) + " Notified!");
                         }
                     });
                 }
@@ -154,6 +125,8 @@ public class chat_listview_of_friends extends AppCompatActivity {
 
                     }
                 });
+
+
             }
 
 
