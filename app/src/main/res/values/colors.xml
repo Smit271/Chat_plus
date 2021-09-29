@@ -6,7 +6,7 @@
     <color name="secondary_text">#757575</color>
     <color name="error">#B00200</color>
     <color name="background">#ffffff</color>
-    <color name="light_background">#8E97CF</color>
+    <color name="light_right_background">#8E97CF</color>
 
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
