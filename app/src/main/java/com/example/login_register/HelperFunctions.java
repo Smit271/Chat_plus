@@ -43,16 +43,19 @@ public class HelperFunctions {
 
             case R.id.action_chat:
                 intent = new Intent(thisActivity,chat_listview_of_friends.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 thisActivity.startActivity(intent);
                 break;
 
             case R.id.action_add_friend:
                 intent = new Intent(thisActivity,search_users.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 thisActivity.startActivity(intent);
                 break;
 
             case R.id.action_pending_requests:
                 intent = new Intent(thisActivity,list_of_requests.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 thisActivity.startActivity(intent);
                 break;
 
@@ -60,6 +63,7 @@ public class HelperFunctions {
                 FirebaseAuth.getInstance().signOut();
                 Toast.makeText(thisActivity, "Logged out", Toast.LENGTH_SHORT).show();
                 intent = new Intent(thisActivity, login.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 thisActivity.startActivity(intent);
                 break;
             // start the activity connect to the specified class

@@ -48,16 +48,12 @@ import com.example.login_register.HelperFunctions;
 public class search_users extends AppCompatActivity {
 
     static String friend_id, user_id, MyEmail;
-    static String currentState, isFriend;
-    static Boolean a = false;
-
-
     static DatabaseReference mref;
 
     private RecyclerView list;
     private AutoCompleteTextView txtsearch;
-
-
+    static ArrayList<dataHandler> listusers;
+    static ArrayList<Search_user_data> userDetails;
 
 
     @Override
@@ -79,6 +75,11 @@ public class search_users extends AppCompatActivity {
         txtsearch = (AutoCompleteTextView) findViewById(R.id.txtsearch);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         list.setLayoutManager(layoutManager);
+
+        listusers = new ArrayList<>();
+        userDetails = new ArrayList<>();
+        CustomAdapter arrayAdapter = new CustomAdapter(this,listusers,userDetails);
+        list.setAdapter(arrayAdapter);
 
         ValueEventListener event = new ValueEventListener() {
             @Override
@@ -124,11 +125,9 @@ public class search_users extends AppCompatActivity {
     private void searchUser(String name) {
         Query query = mref.orderByChild("name").equalTo(name);
         System.out.println("Query :" + query);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ArrayList<dataHandler> listusers = new ArrayList<>();
-                ArrayList<Search_user_data> userDetails = new ArrayList<>();
                 if (snapshot.exists()) {
                     for (DataSnapshot ds : snapshot.getChildren()) {
                         dataHandler user = new dataHandler(ds.child("user_name").getValue(String.class),
@@ -140,17 +139,10 @@ public class search_users extends AppCompatActivity {
                         friend_id = ds.getKey();
                         Search_user_data user_details = new Search_user_data(user_id, friend_id);
                         userDetails.add(user_details);
-                        a = true;
                     }
                 } else {
-                    a = true;
                     Log.d("users", "No data found");
                 }
-                if (a) {
-                    CustomAdapter arrayAdapter = new CustomAdapter(listusers, userDetails);
-                    list.setAdapter(arrayAdapter);
-                }
-
             }
 
             @Override
@@ -158,6 +150,17 @@ public class search_users extends AppCompatActivity {
 
             }
         });
+//        query.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
     }
 
     @Override
@@ -197,7 +200,7 @@ public class search_users extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), chat_listview_of_friends.class));
         finish();
     }
-    
+
 }
 
 
