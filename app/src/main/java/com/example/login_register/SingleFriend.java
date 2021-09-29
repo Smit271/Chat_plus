@@ -1,17 +1,28 @@
 package com.example.login_register;
 
 import android.graphics.Bitmap;
+import android.net.Uri;
 
 public class SingleFriend {
 
     private String username;
     private int profile_image_id;
     private Bitmap profilePictureBitmap;
+    private String uri;
 
-    public SingleFriend(String username, int profile_image_id, Bitmap profilePictureBitmap) {
+    public SingleFriend(String username, int profile_image_id, Bitmap profilePictureBitmap,String uri) {
         this.username = username;
         this.profile_image_id = profile_image_id;
         this.profilePictureBitmap = profilePictureBitmap;
+        this.uri = uri;
+    }
+
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
     }
 
     public String getUsername() {

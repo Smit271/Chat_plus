@@ -15,6 +15,11 @@ public class ViewHolderChat {
         this.time = time;
     }
 
+    public ViewHolderChat(TextView mText, TextView time) {
+        this.mText = mText;
+        this.time = time;
+    }
+
     public TextView getmText() {
         return mText;
     }

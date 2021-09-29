@@ -189,7 +189,6 @@ public class list_of_requests extends AppCompatActivity {
             });
         }
 
-
         // Return the size of your dataset (invoked by the layout manager)
         @Override
         public int getItemCount() {
