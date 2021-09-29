@@ -11,8 +11,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:padding="10dp">
+            android:background="@color/white">
 
             <TextView
                 android:id="@+id/name"
@@ -48,6 +47,14 @@
                 android:text="Decline"
                 android:textSize="10dp"
                 app:cornerRadius="8dp" />
+            
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider"
+                android:layout_below="@id/item_btn_accept"
+                android:layout_marginTop="15dp">
+            </View>
 
         </RelativeLayout>
     </ScrollView>

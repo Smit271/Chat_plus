@@ -29,8 +29,11 @@
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:gravity="center"
-            android:text="No data found"
-            android:textSize="30dp"
-            android:visibility="invisible" />
+            android:textColor="@color/primary_text"
+            android:text="No friend requests"
+            android:textSize="18dp"
+            android:visibility="invisible"
+            android:layout_margin="15dp"/>
+
     </RelativeLayout>
 </ScrollView>
