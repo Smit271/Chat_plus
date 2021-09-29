@@ -161,9 +161,6 @@ public class list_of_requests extends AppCompatActivity {
                             viewHolder.item_btn_decline.setVisibility(View.GONE);
                         }
                     });
-                    if (localDataSet.isEmpty()) {
-
-                    }
                     mref.child(thisuser).child("friends").child(user_id).child("request_type").setValue("accepted").addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
