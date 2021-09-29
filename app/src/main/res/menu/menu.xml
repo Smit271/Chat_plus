@@ -13,20 +13,20 @@
             <item android:id="@+id/action_chat"
                 android:icon="@drawable/chat_icon"
                 app:showAsAction="ifRoom"
-                android:title="Chat" />
+                android:title="Chats" />
 
             <item android:id="@+id/action_add_friend"
-                android:icon="@android:drawable/ic_menu_help"
+                android:icon="@drawable/add_friends_icon"
                 app:showAsAction="ifRoom"
                 android:title="Add Friends" />
 
             <item android:id="@+id/action_pending_requests"
-                android:icon="@android:drawable/ic_menu_help"
+                android:icon="@drawable/pending_request_icon"
                 app:showAsAction="ifRoom"
                 android:title="Pending Requests" />
 
             <item android:id="@+id/action_logout"
-                android:icon="@android:drawable/ic_menu_help"
+                android:icon="@drawable/logout_icon"
                 app:showAsAction="ifRoom"
                 android:title="Logout" />
 
