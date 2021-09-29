@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/message_sent"
-    android:background="@drawable/chat_right_item_background"
     >
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/chat_right_item_background"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="right">
 
     <TextView
         style="@style/style_message_sent"
@@ -15,9 +20,11 @@
         android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         tools:text="Karm Patel"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:visibility="gone"
         />
 
     <TextView
@@ -25,6 +32,7 @@
         android:id="@+id/message_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         tools:text="Hey, Can you please complete this project before 28th? and also send the assignment given by Rana"
         />
     <TextView
@@ -32,8 +40,10 @@
         android:id="@+id/message_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/message_text"
+        android:layout_alignParentEnd="true"
         tools:text="26-09-2021 (15:37:28)"
         android:textSize="10sp"
         />
-
-</LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

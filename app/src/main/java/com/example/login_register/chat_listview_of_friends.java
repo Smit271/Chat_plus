@@ -97,12 +97,13 @@ public class chat_listview_of_friends extends AppCompatActivity {
 
             //fetch my friends only
             Log.d(TAG, "@@@ before on data change @@@");
-            DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users");
+            DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("users").child(MyUserId).child("friends");
             usersRef.keepSynced(true);
             usersRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     myFriendUnames.clear();
+                    singleFriends.clear();
                     for (DataSnapshot snap : snapshot.getChildren()) {
                         myFriendUnames.add(snap.getKey().toString());
                         Log.d(TAG, "Key +++++++ " + snap.getKey() + "++++++++++");

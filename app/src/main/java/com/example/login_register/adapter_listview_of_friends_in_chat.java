@@ -60,7 +60,7 @@ public class adapter_listview_of_friends_in_chat extends ArrayAdapter <SingleFri
         if (friend.getProfile_image_id() == 0){
         String uri = friend.getUri();
         //Picasso.get().load(uri).networkPolicy(NetworkPolicy.OFFLINE).into(fprofile_image);}
-        Glide.with(activity).load(uri.toString()).into(fprofile_image);
+        Glide.with(activity).load(uri).into(fprofile_image);
         }
 
         else{

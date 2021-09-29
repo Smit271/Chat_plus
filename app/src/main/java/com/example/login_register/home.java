@@ -40,11 +40,11 @@ public class home extends AppCompatActivity {
         String name = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
 
         ActionBar actionBar = getSupportActionBar();
-        if (name == null) {
-            actionBar.setTitle("Welcome");
-        } else {
-            actionBar.setTitle("Welcome " + name);
-        }
+//        if (name == null) {
+//            actionBar.setTitle("Welcome");
+//        } else {
+//            actionBar.setTitle("Welcome " + name);
+//        }
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 

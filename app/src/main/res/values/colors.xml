@@ -5,6 +5,8 @@
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#757575</color>
     <color name="error">#B00200</color>
+    <color name="background">#b7d7f7</color>
+
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>

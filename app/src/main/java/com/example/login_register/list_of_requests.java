@@ -152,7 +152,7 @@ public class list_of_requests extends AppCompatActivity {
             viewHolder.item_btn_accept.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mref.child(user_id).child("frineds").child(thisuser).child("request_type").setValue("accepted").addOnCompleteListener(new OnCompleteListener<Void>() {
+                    mref.child(user_id).child("friends").child(thisuser).child("request_type").setValue("accepted").addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             Toast.makeText(view.getContext(), "Request Accepted ", Toast.LENGTH_LONG).show();
@@ -164,7 +164,7 @@ public class list_of_requests extends AppCompatActivity {
                     if (localDataSet.isEmpty()) {
 
                     }
-                    mref.child(thisuser).child("frineds").child(user_id).child("request_type").setValue("accepted").addOnCompleteListener(new OnCompleteListener<Void>() {
+                    mref.child(thisuser).child("friends").child(user_id).child("request_type").setValue("accepted").addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                         }
@@ -191,7 +191,6 @@ public class list_of_requests extends AppCompatActivity {
                 }
             });
         }
-
 
         // Return the size of your dataset (invoked by the layout manager)
         @Override
