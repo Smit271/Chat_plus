@@ -27,9 +27,8 @@
             android:id="@+id/no_data_found"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:text="No data found"
+            android:layout_centerInParent="true"
+            android:text="No Request Pending"
             android:textSize="30dp"
             android:visibility="invisible" />
     </RelativeLayout>
