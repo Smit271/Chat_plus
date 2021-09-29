@@ -54,7 +54,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
      * @param dataSet       String[] containing the data to populate views to be used
      *                      by RecyclerView.
      */
-    public CustomAdapter(ArrayList<dataHandler> dataSet,ArrayList<Search_user_data> user_dataset) {
+    public CustomAdapter(Context context,ArrayList<dataHandler> dataSet,ArrayList<Search_user_data> user_dataset) {
         super();
         this.localDataSet = dataSet;
         this.user_dataset = user_dataset;
