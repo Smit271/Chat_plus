@@ -9,6 +9,6 @@
         />
 
     <solid
-        android:color="@color/divider"
+        android:color="@color/gray"
         />
 </shape>

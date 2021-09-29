@@ -28,9 +28,8 @@
             android:layout_alignParentBottom="true"
             android:layout_toLeftOf="@+id/btn_message_send"
             android:hint="Type your Message here"
-            android:backgroundTint="@color/primary"
-
-            >
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/primary">
 
         </com.google.android.material.textfield.TextInputEditText>
 
@@ -38,12 +37,12 @@
             android:id="@+id/btn_message_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:src="@drawable/ic_baseline_send_24"
             android:foregroundGravity="right"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:backgroundTint="@color/primary"
-            >
+            android:backgroundTint="@color/white">
 
         </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
