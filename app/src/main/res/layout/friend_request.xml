@@ -47,7 +47,7 @@
                 android:text="Decline"
                 android:textSize="10dp"
                 app:cornerRadius="8dp" />
-            
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
