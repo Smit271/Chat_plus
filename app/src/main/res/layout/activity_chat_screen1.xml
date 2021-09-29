@@ -43,7 +43,6 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:backgroundTint="@color/white">
-
         </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
 </RelativeLayout>
