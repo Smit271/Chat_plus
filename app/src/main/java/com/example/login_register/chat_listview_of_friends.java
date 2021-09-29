@@ -10,6 +10,8 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -61,8 +63,8 @@ public class chat_listview_of_friends extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(MyUserId);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(true);
+//        actionBar.setDisplayHomeAsUpEnabled(true);
+//        actionBar.setDisplayShowHomeEnabled(true);
 
 
         //fetch my friends only
@@ -140,41 +142,42 @@ public class chat_listview_of_friends extends AppCompatActivity {
 
     }
 
+//    @Override
+//    public boolean onSupportNavigateUp() {
+//        onBackPressed();
+//        return super.onSupportNavigateUp();
+//    }
+//    @Override
+//    public void onBackPressed()
+//    {
+//        startActivity(new Intent(chat_listview_of_friends.this, home.class));
+//        finish();
+//    }
+
     @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return super.onSupportNavigateUp();
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate your main_menu into the menu
+        getMenuInflater().inflate(R.menu.menu, menu);
+
+        // Find the menuItem to add your SubMenu
+        MenuItem myMenuItem = menu.findItem(R.id.empty);
+
+        // Inflating the sub_menu menu this way, will add its menu items
+        // to the empty SubMenu you created in the xml
+        getMenuInflater().inflate(R.menu.sub_menu, myMenuItem.getSubMenu());
+
+        return super.onCreateOptionsMenu(menu);
     }
     @Override
-    public void onBackPressed()
-    {
-        startActivity(new Intent(chat_listview_of_friends.this, home.class));
-        finish();
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        int id = item.getItemId();
+        HelperFunctions helper = new HelperFunctions();
+
+        //change intent based on item pressed
+        helper.doActiononClickActionBtn(getApplicationContext(),id);
+
+        return super.onOptionsItemSelected(item);
     }
 
-    public void addListAdapter() {
-
-        Log.d(TAG, "In list adapter, singlefriends size: " + singleFriends.size());
-        adapter_listview_of_friends_in_chat singleFriendAdapter = new adapter_listview_of_friends_in_chat(chat_listview_of_friends.this, singleFriends);
-
-        //find the view where this adapter will throw the list of single friends
-        friendListView.setAdapter(singleFriendAdapter);
-
-        friendListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                Intent chatIntent = new Intent(chat_listview_of_friends.this, ChatScreen1.class);
-
-                //get item where user clicked
-                SingleFriend sFriend = (SingleFriend) adapterView.getItemAtPosition(position);
-                //send Username
-                chatIntent.putExtra("uname_of_friend", sFriend.getUsername());
-                chatIntent.putExtra("uname_of_mine", MyUserId);
-                Log.d(TAG, "In Putextra my Usrname: " + MyUserId);
-                startActivity(chatIntent);
-
-            }
-        });
-
-    }
 }

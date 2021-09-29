@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/empty"
+        android:title=""
+        android:orderInCategory="101"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_baseline_send_24">
+
+        <menu>
+            <item android:id="@+id/action_chat"
+                android:icon="@android:drawable/ic_menu_preferences"
+                app:showAsAction="ifRoom"
+                android:title="Chat" />
+
+            <item android:id="@+id/action_add_friend"
+                android:icon="@android:drawable/ic_menu_help"
+                app:showAsAction="ifRoom"
+                android:title="Add Friends" />
+
+            <item android:id="@+id/action_pending_requests"
+                android:icon="@android:drawable/ic_menu_help"
+                app:showAsAction="ifRoom"
+                android:title="Pending Requests" />
+
+            <item android:id="@+id/action_logout"
+                android:icon="@android:drawable/ic_menu_help"
+                app:showAsAction="ifRoom"
+                android:title="Logout" />
+
+        </menu>
+
+    </item>
+
+</menu>

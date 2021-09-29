@@ -1,5 +1,10 @@
 package com.example.login_register;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,6 +34,38 @@ public class HelperFunctions {
     public static String getUseridFromEmail(String email){
         int index = email.indexOf('@');
         return email.substring(0,index);
+    }
+
+    public void doActiononClickActionBtn(Context thisActivity, int id){
+        Intent intent = null;
+
+        switch (id){
+
+            case R.id.action_chat:
+                intent = new Intent(thisActivity,chat_listview_of_friends.class);
+                thisActivity.startActivity(intent);
+                break;
+
+            case R.id.action_add_friend:
+                intent = new Intent(thisActivity,search_users.class);
+                thisActivity.startActivity(intent);
+                break;
+
+            case R.id.action_pending_requests:
+                intent = new Intent(thisActivity,list_of_requests.class);
+                thisActivity.startActivity(intent);
+                break;
+
+            case R.id.action_logout:
+                FirebaseAuth.getInstance().signOut();
+                Toast.makeText(thisActivity, "Logged out", Toast.LENGTH_SHORT).show();
+                intent = new Intent(thisActivity, login.class);
+                thisActivity.startActivity(intent);
+                break;
+            // start the activity connect to the specified class
+        }
+
+
     }
 
 }

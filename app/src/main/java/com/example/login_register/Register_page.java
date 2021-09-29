@@ -88,7 +88,7 @@ public class Register_page extends AppCompatActivity {
 
         // If user click on already have an account login text -- Redirect to login page..
         mLogin.setOnClickListener(view -> {
-            Intent intent = new Intent(Register_page.this, login.class );
+            Intent intent = new Intent(Register_page.this, login.class);
             startActivity(intent);
         });
 

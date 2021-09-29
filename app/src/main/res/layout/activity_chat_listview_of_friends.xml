@@ -11,11 +11,15 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/test_image"/>
+        android:id="@+id/test_image"
+        android:visibility="gone"
+        />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Test"/>
+        android:text="Test"
+        android:visibility="gone"
+        />
 
     <ListView
         android:layout_width="match_parent"

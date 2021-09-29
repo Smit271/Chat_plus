@@ -42,7 +42,7 @@ public class login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         FirebaseUser User = FirebaseAuth.getInstance().getCurrentUser();
         if (User != null){
-            Intent intent = new Intent(login.this, home.class);
+            Intent intent = new Intent(login.this, chat_listview_of_friends.class);
             startActivity(intent);
         }
         else {
@@ -116,7 +116,7 @@ public class login extends AppCompatActivity {
                                             String email = task.getResult().getString("email");
 
                                             Toast.makeText(getApplicationContext(), "Logged In as " + user_name, Toast.LENGTH_LONG).show();
-                                            Intent intent = new Intent(login.this, home.class);
+                                            Intent intent = new Intent(login.this, chat_listview_of_friends.class);
                                             startActivity(intent);
                                         } else {
                                             Intent intent = new Intent(login.this, Register_page.class);
