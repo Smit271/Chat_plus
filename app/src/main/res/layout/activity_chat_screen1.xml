@@ -7,25 +7,16 @@
     tools:context=".ChatScreen1"
     >
 
-    <TextView
-        android:id="@+id/friend_username_main_chat_screen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
-        android:text="Username"
-        />
-
-
     <ListView
         android:id="@+id/listview_messages"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:transcriptMode="alwaysScroll"
         android:stackFromBottom="true"
-        android:layout_below="@+id/friend_username_main_chat_screen"
         android:layout_above="@+id/message_edit_text"
         android:background="@color/background"
+        android:divider="@null"
+        android:dividerHeight="0dp"
         >
 
     </ListView>

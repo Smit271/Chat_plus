@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/message_received"
-    android:background="@drawable/chat_left_item_background"
+    android:layout_width="300dp"
+    android:padding="8dp"
     >
 
     <TextView
@@ -17,25 +16,56 @@
         tools:text="Karm Patel"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:visibility="gone"/>
+
+    <!--        />-->
+    <!--    <TextView-->
+    <!--        style="@style/style_message_received"-->
+    <!--        android:id="@+id/message_text"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        tools:text="Hey, Can you please complete this project before 28th? and also send the assignment given by Rana"-->
+    <!--        android:textColor="@color/white"-->
+    <!--        />-->
+    <!--    <TextView-->
+    <!--        style="@style/style_message_received"-->
+    <!--        android:id="@+id/message_time"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        tools:text="26-09-2021 (15:37:28)"-->
+    <!--        android:textSize="10sp"-->
+    <!--        />-->
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/chat_image"
         android:visibility="gone"
-
         />
+
     <TextView
-        style="@style/style_message_received"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:padding="8dp"
         android:id="@+id/message_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Hey, Can you please complete this project before 28th? and also send the assignment given by Rana"
-        android:textColor="@color/white"
-        />
+        tools:text="Hello"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:layout_toRightOf="@id/chat_image"
+        android:background="@drawable/chat_left_item_background"/>
+
+
     <TextView
-        style="@style/style_message_received"
-        android:id="@+id/message_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="26-09-2021 (15:37:28)"
-        android:textSize="10sp"
+        android:id="@+id/message_time"
+        android:layout_marginLeft="5dp"
+        android:layout_below="@id/message_text"
+        tools:text="26-09-2021 (15:37)"
+        android:textSize="8sp"
         />
 
 
-</LinearLayout>
+
+</RelativeLayout>
