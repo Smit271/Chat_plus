@@ -9,6 +9,6 @@
         />
 
     <solid
-        android:color="@color/primary"
+        android:color="@color/light_background"
         />
 </shape>

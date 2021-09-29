@@ -4,13 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/message_received"
     android:layout_width="300dp"
-    android:padding="8dp"
-    >
+    android:padding="8dp">
 
     <TextView
         style="@style/style_message_received"
         android:id="@+id/message_user"
-        android:textColor="@color/primary"
+        android:textColor="@color/primary_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Karm Patel"
@@ -36,12 +35,12 @@
     <!--        android:textSize="10sp"-->
     <!--        />-->
 
-    <de.hdodenhof.circleimageview.CircleImageView
+<!--    <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:id="@+id/chat_image"
         android:visibility="gone"
-        />
+        />-->
 
     <TextView
         android:layout_width="wrap_content"
@@ -50,10 +49,11 @@
         android:padding="8dp"
         android:id="@+id/message_text"
         tools:text="Hello"
-        android:textColor="@android:color/white"
+        android:textColor="@color/primary_text"
         android:textSize="18sp"
-        android:layout_toRightOf="@id/chat_image"
         android:background="@drawable/chat_left_item_background"/>
+
+<!--    android:layout_toRightOf="@id/chat_image"-->
 
 
     <TextView
@@ -65,7 +65,5 @@
         tools:text="26-09-2021 (15:37)"
         android:textSize="8sp"
         />
-
-
 
 </RelativeLayout>
