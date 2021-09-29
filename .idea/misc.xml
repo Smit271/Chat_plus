@@ -3,9 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Chat_plus/app/src/main/res/layout/activity_chat_listview_of_friends.xml" value="0.16" />
+        <entry key="..\:/Chat_plus/app/src/main/res/layout/activity_chat_screen1.xml" value="0.264" />
+        <entry key="..\:/Chat_plus/app/src/main/res/layout/activity_list_of_requests.xml" value="0.25416666666666665" />
         <entry key="..\:/Chat_plus/app/src/main/res/layout/activity_login.xml" value="0.2" />
         <entry key="..\:/Chat_plus/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Chat_plus/app/src/main/res/layout/activity_register_page.xml" value="0.2" />
+        <entry key="..\:/Chat_plus/app/src/main/res/layout/activity_search_users.xml" value="0.13020833333333334" />
+        <entry key="..\:/Chat_plus/app/src/main/res/layout/activity_setting_profile_picture.xml" value="0.13020833333333334" />
+        <entry key="..\:/Chat_plus/app/src/main/res/layout/friend_request.xml" value="0.25416666666666665" />
+        <entry key="..\:/Chat_plus/app/src/main/res/layout/message_received.xml" value="0.13020833333333334" />
+        <entry key="..\:/Chat_plus/app/src/main/res/layout/message_sent.xml" value="0.13020833333333334" />
+        <entry key="..\:/Chat_plus/app/src/main/res/layout/single_friend.xml" value="0.13020833333333334" />
+        <entry key="..\:/Chat_plus/app/src/main/res/layout/user_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Lance/AndroidStudioProjects/Chat_plus/app/src/main/res/layout/activity_home.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/Lance/AndroidStudioProjects/Chat_plus/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/Users/Lance/AndroidStudioProjects/Chat_plus/app/src/main/res/layout/activity_main.xml" value="0.13020833333333334" />
