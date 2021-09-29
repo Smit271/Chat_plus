@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -54,6 +56,16 @@ public class chat_listview_of_friends extends AppCompatActivity {
         TextView textView = (TextView) findViewById(R.id.no_friend_indicator);
         progressBar.setVisibility(View.VISIBLE);
 
+
+        FloatingActionButton add_usr_btn = (FloatingActionButton) findViewById(R.id.add_user_in_chat_screen);
+        add_usr_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),search_users.class);
+                startActivity(intent);
+            }
+        });
+
         FirebaseUser User = FirebaseAuth.getInstance().getCurrentUser();
         HelperFunctions helper = new HelperFunctions();
 
@@ -69,8 +81,8 @@ public class chat_listview_of_friends extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(MyUserId);
-        actionBar.setLogo(R.drawable.ic_launcher_foreground);
-        actionBar.setDisplayUseLogoEnabled(true);
+//        actionBar.setLogo(R.mipmap.ic_launcher_round);
+//        actionBar.setDisplayUseLogoEnabled(true);
 //        actionBar.setDisplayHomeAsUpEnabled(true);
 //        actionBar.setDisplayShowHomeEnabled(true);
 

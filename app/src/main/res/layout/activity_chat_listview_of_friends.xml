@@ -47,4 +47,16 @@
         android:layout_height="wrap_content"
         android:id="@+id/listview_friends_chat"/>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_user_in_chat_screen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:src="@drawable/add_friends_icon"
+        android:foregroundGravity="right"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:backgroundTint="@color/primary">
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
 </RelativeLayout>
