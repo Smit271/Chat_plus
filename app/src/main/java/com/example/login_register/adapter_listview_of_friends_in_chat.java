@@ -13,8 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
-import com.squareup.picasso.NetworkPolicy;
-import com.squareup.picasso.Picasso;
+
 
 import java.util.ArrayList;
 
