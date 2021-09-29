@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".chat_listview_of_friends"
-    android:orientation="vertical"
     >
 
     <ImageView
@@ -21,9 +20,31 @@
         android:visibility="gone"
         />
 
+    <ProgressBar
+        android:id="@+id/progressBar_in_chat_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/no_friend_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Opps! You don't have single a friend!"
+        android:layout_centerVertical="true"
+        android:padding="20sp"
+
+        android:layout_centerHorizontal="true"
+        android:textSize="25sp"
+        android:visibility="gone"
+        />
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/listview_friends_chat"/>
 
-</LinearLayout>
+</RelativeLayout>

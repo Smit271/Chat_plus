@@ -16,6 +16,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -47,8 +50,11 @@ public class chat_listview_of_friends extends AppCompatActivity {
         setContentView(R.layout.activity_chat_listview_of_friends);
 
 
-        FirebaseUser User = FirebaseAuth.getInstance().getCurrentUser();
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar_in_chat_list);
+        TextView textView = (TextView) findViewById(R.id.no_friend_indicator);
+        progressBar.setVisibility(View.VISIBLE);
 
+        FirebaseUser User = FirebaseAuth.getInstance().getCurrentUser();
         HelperFunctions helper = new HelperFunctions();
 
         //set adapter
@@ -63,6 +69,8 @@ public class chat_listview_of_friends extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(MyUserId);
+        actionBar.setLogo(R.drawable.ic_launcher_foreground);
+        actionBar.setDisplayUseLogoEnabled(true);
 //        actionBar.setDisplayHomeAsUpEnabled(true);
 //        actionBar.setDisplayShowHomeEnabled(true);
 
@@ -84,6 +92,11 @@ public class chat_listview_of_friends extends AppCompatActivity {
 
                 Log.d(TAG, "MyFriendUnames size " + myFriendUnames.size());
 
+                if (myFriendUnames.size() == 0){
+                    progressBar.setVisibility(View.GONE);
+                    textView.setVisibility(View.VISIBLE);
+                }
+
                 //This is list of objects to of SingleFriend to pass in array adapter
                 //Profile Image should be come from database using user id
 
@@ -99,6 +112,9 @@ public class chat_listview_of_friends extends AppCompatActivity {
                             singleFriendAdapter.notifyDataSetChanged();
                             Log.d(TAG,myFriendUnames.get(finalI) + " Notified!");
 
+                            if (progressBar.getVisibility() == View.VISIBLE){ progressBar.setVisibility(View.GONE); }
+
+
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -107,6 +123,7 @@ public class chat_listview_of_friends extends AppCompatActivity {
                             singleFriends.add(new SingleFriend(myFriendUnames.get(finalI), R.drawable.ic_launcher_foreground, null, null));
                             singleFriendAdapter.notifyDataSetChanged();
                             Log.d(TAG,myFriendUnames.get(finalI) + " Notified!");
+                            if (progressBar.getVisibility() == View.VISIBLE){ progressBar.setVisibility(View.GONE); }
                         }
                     });
                 }
@@ -124,11 +141,8 @@ public class chat_listview_of_friends extends AppCompatActivity {
                         chatIntent.putExtra("profile_image",sFriend.getUri());
                         Log.d(TAG, "In Putextra my Usrname: " + MyUserId);
                         startActivity(chatIntent);
-
                     }
                 });
-
-
             }
 
 
