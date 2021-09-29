@@ -9,6 +9,6 @@
         />
 
     <solid
-        android:color="@color/cardview_dark_background"
+        android:color="#555555"
         />
 </shape>

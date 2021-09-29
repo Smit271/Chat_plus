@@ -48,7 +48,7 @@ public class adapter_listview_of_friends_in_chat extends ArrayAdapter <SingleFri
         //set profile image
         ImageView fprofile_image = (ImageView) listItemView.findViewById(R.id.profile_picture);
 
-        Bitmap bitProfile = friend.getProfilePictureBitmap();
+//        Bitmap bitProfile = friend.getProfilePictureBitmap();
 //        if (bitProfile == null){
 //            fprofile_image.setImageResource(friend.getProfile_image_id());
 //        }

@@ -7,24 +7,23 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -32,16 +31,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
-
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class chat_listview_of_friends extends AppCompatActivity {
@@ -60,15 +51,27 @@ public class chat_listview_of_friends extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_listview_of_friends);
 
-        FirebaseUser User = FirebaseAuth.getInstance().getCurrentUser();
 
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar_in_chat_list);
+        TextView textView = (TextView) findViewById(R.id.no_friend_indicator);
+        progressBar.setVisibility(View.VISIBLE);
+
+
+        FloatingActionButton add_usr_btn = (FloatingActionButton) findViewById(R.id.add_user_in_chat_screen);
+        add_usr_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),search_users.class);
+                startActivity(intent);
+            }
+        });
+
+        FirebaseUser User = FirebaseAuth.getInstance().getCurrentUser();
         HelperFunctions helper = new HelperFunctions();
 
         //set adapter
         friendListView = (ListView) findViewById(R.id.listview_friends_chat);
         adapter_listview_of_friends_in_chat singleFriendAdapter = new adapter_listview_of_friends_in_chat(chat_listview_of_friends.this, singleFriends);
-
-        //find the view where this adapter will throw the list of single friends
         friendListView.setAdapter(singleFriendAdapter);
 
 
@@ -78,8 +81,10 @@ public class chat_listview_of_friends extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(MyUserId);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(true);
+//        actionBar.setLogo(R.mipmap.ic_launcher_round);
+//        actionBar.setDisplayUseLogoEnabled(true);
+//        actionBar.setDisplayHomeAsUpEnabled(true);
+//        actionBar.setDisplayShowHomeEnabled(true);
 
 
         //fetch my friends only
@@ -94,12 +99,15 @@ public class chat_listview_of_friends extends AppCompatActivity {
                 for (DataSnapshot snap : snapshot.getChildren()) {
                     myFriendUnames.add(snap.getKey().toString());
                     Log.d(TAG, "Key +++++++ " + snap.getKey() + "++++++++++");
-
-                    //here I am adding items to list adapter
                 }
 
 
                 Log.d(TAG, "MyFriendUnames size " + myFriendUnames.size());
+
+                if (myFriendUnames.size() == 0){
+                    progressBar.setVisibility(View.GONE);
+                    textView.setVisibility(View.VISIBLE);
+                }
 
                 //This is list of objects to of SingleFriend to pass in array adapter
                 //Profile Image should be come from database using user id
@@ -112,17 +120,13 @@ public class chat_listview_of_friends extends AppCompatActivity {
                         @Override
                         public void onSuccess(Uri uri) {
                             Log.d(TAG, myFriendUnames.get(finalI)+": " + uri.toString());
-//                                ImageView fprofile_image = (ImageView) findViewById(R.id.test_image);
-                            //Picasso.get().load(uri.toString()).into(fprofile_image);
-
                             singleFriends.add(new SingleFriend(myFriendUnames.get(finalI), 0, null, uri.toString()));
-
                             singleFriendAdapter.notifyDataSetChanged();
+                            Log.d(TAG,myFriendUnames.get(finalI) + " Notified!");
 
-                            Log.d(TAG,finalI+" Just Before if......");
-//                                if (finalI == (myFriendUnames.size()-1)){
-//                                    addListAdapter();
-//                                }
+                            if (progressBar.getVisibility() == View.VISIBLE){ progressBar.setVisibility(View.GONE); }
+
+
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -130,10 +134,8 @@ public class chat_listview_of_friends extends AppCompatActivity {
                             Log.d(TAG, "Failed to get Image of "+myFriendUnames.get(finalI));
                             singleFriends.add(new SingleFriend(myFriendUnames.get(finalI), R.drawable.ic_launcher_foreground, null, null));
                             singleFriendAdapter.notifyDataSetChanged();
-
-//                                if (finalI == (myFriendUnames.size()-1)){
-//                                    addListAdapter();
-//                                }
+                            Log.d(TAG,myFriendUnames.get(finalI) + " Notified!");
+                            if (progressBar.getVisibility() == View.VISIBLE){ progressBar.setVisibility(View.GONE); }
                         }
                     });
                 }
@@ -151,7 +153,6 @@ public class chat_listview_of_friends extends AppCompatActivity {
                         chatIntent.putExtra("profile_image",sFriend.getUri());
                         Log.d(TAG, "In Putextra my Usrname: " + MyUserId);
                         startActivity(chatIntent);
-
                     }
                 });
             }
@@ -167,41 +168,42 @@ public class chat_listview_of_friends extends AppCompatActivity {
 
     }
 
+//    @Override
+//    public boolean onSupportNavigateUp() {
+//        onBackPressed();
+//        return super.onSupportNavigateUp();
+//    }
+//    @Override
+//    public void onBackPressed()
+//    {
+//        startActivity(new Intent(chat_listview_of_friends.this, home.class));
+//        finish();
+//    }
+
     @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return super.onSupportNavigateUp();
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate your main_menu into the menu
+        getMenuInflater().inflate(R.menu.menu, menu);
+
+        // Find the menuItem to add your SubMenu
+        MenuItem myMenuItem = menu.findItem(R.id.empty);
+
+        // Inflating the sub_menu menu this way, will add its menu items
+        // to the empty SubMenu you created in the xml
+        getMenuInflater().inflate(R.menu.sub_menu, myMenuItem.getSubMenu());
+
+        return super.onCreateOptionsMenu(menu);
     }
     @Override
-    public void onBackPressed()
-    {
-        startActivity(new Intent(chat_listview_of_friends.this, home.class));
-        finish();
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        int id = item.getItemId();
+        HelperFunctions helper = new HelperFunctions();
+
+        //change intent based on item pressed
+        helper.doActiononClickActionBtn(getApplicationContext(),id);
+
+        return super.onOptionsItemSelected(item);
     }
 
-    public void addListAdapter() {
-
-        Log.d(TAG, "In list adapter, singlefriends size: " + singleFriends.size());
-        adapter_listview_of_friends_in_chat singleFriendAdapter = new adapter_listview_of_friends_in_chat(chat_listview_of_friends.this, singleFriends);
-
-        //find the view where this adapter will throw the list of single friends
-        friendListView.setAdapter(singleFriendAdapter);
-
-        friendListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                Intent chatIntent = new Intent(chat_listview_of_friends.this, ChatScreen1.class);
-
-                //get item where user clicked
-                SingleFriend sFriend = (SingleFriend) adapterView.getItemAtPosition(position);
-                //send Username
-                chatIntent.putExtra("uname_of_friend", sFriend.getUsername());
-                chatIntent.putExtra("uname_of_mine", MyUserId);
-                Log.d(TAG, "In Putextra my Usrname: " + MyUserId);
-                startActivity(chatIntent);
-
-            }
-        });
-
-    }
 }

@@ -19,6 +19,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="12dp"
+                android:layout_alignParentStart="true"
                 android:text="Name"
                 android:textColor="@color/primary_text"
                 android:textSize="16dp"
@@ -29,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="60dp"
-                android:layout_toRightOf="@+id/name"
+                android:layout_toLeftOf="@+id/item_btn_decline"
                 android:backgroundTint="@color/accept_btn"
                 android:gravity="center"
                 android:text="Accept"
@@ -41,11 +42,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_toRightOf="@+id/item_btn_accept"
                 android:backgroundTint="@color/decline_btn"
                 android:gravity="center"
                 android:text="Decline"
                 android:textSize="10dp"
+                android:layout_alignParentEnd="true"
                 app:cornerRadius="8dp" />
 
             <View

@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -98,6 +100,32 @@ public class home extends AppCompatActivity {
     public void onBackPressed() {
         startActivity(new Intent(home.this, MainActivity.class));
         finish();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate your main_menu into the menu
+        getMenuInflater().inflate(R.menu.menu, menu);
+
+        // Find the menuItem to add your SubMenu
+        MenuItem myMenuItem = menu.findItem(R.id.empty);
+
+        // Inflating the sub_menu menu this way, will add its menu items
+        // to the empty SubMenu you created in the xml
+        getMenuInflater().inflate(R.menu.sub_menu, myMenuItem.getSubMenu());
+
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        int id = item.getItemId();
+        HelperFunctions helper = new HelperFunctions();
+
+        //change intent based on item pressed
+        helper.doActiononClickActionBtn(getApplicationContext(),id);
+
+        return super.onOptionsItemSelected(item);
     }
 }
 

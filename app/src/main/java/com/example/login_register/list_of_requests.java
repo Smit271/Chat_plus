@@ -2,6 +2,7 @@ package com.example.login_register;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,6 +12,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -52,6 +55,11 @@ public class list_of_requests extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_of_requests);
+
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
 
         no_data_found = (TextView) findViewById(R.id.no_data_found);
         mAuth = FirebaseAuth.getInstance();
@@ -194,5 +202,45 @@ public class list_of_requests extends AppCompatActivity {
         public int getItemCount() {
             return localDataSet.size();
         }
+
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate your main_menu into the menu
+        getMenuInflater().inflate(R.menu.menu, menu);
+
+        // Find the menuItem to add your SubMenu
+        MenuItem myMenuItem = menu.findItem(R.id.empty);
+
+        // Inflating the sub_menu menu this way, will add its menu items
+        // to the empty SubMenu you created in the xml
+        getMenuInflater().inflate(R.menu.sub_menu, myMenuItem.getSubMenu());
+
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        int id = item.getItemId();
+        HelperFunctions helper = new HelperFunctions();
+
+        //change intent based on item pressed
+        helper.doActiononClickActionBtn(getApplicationContext(),id);
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
+    }
+    @Override
+    public void onBackPressed()
+    {
+        startActivity(new Intent(getApplicationContext(), chat_listview_of_friends.class));
+        finish();
+    }
+
 }
