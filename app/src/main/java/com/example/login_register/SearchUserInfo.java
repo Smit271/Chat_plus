@@ -3,17 +3,15 @@ package com.example.login_register;
 public class SearchUserInfo {
 
     private String user_id,friend_id,isFriend,currentState;
+    int index;
 
-    public SearchUserInfo(String isFriend, String currentState) {
-        this.isFriend = isFriend;
-        this.currentState = currentState;
-    }
 
-    public SearchUserInfo(String user_id, String friend_id, String isFriend, String currentState) {
+    public SearchUserInfo(String user_id, String friend_id, String isFriend, String currentState,int index) {
         this.user_id = user_id;
         this.friend_id = friend_id;
         this.isFriend = isFriend;
         this.currentState = currentState;
+        this.index = index;
     }
 
     public String getIsFriend() {
@@ -46,5 +44,13 @@ public class SearchUserInfo {
 
     public void setFriend_id(String friend_id) {
         this.friend_id = friend_id;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 }

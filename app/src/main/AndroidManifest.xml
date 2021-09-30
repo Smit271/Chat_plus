@@ -30,11 +30,6 @@
             android:exported="true"
             android:label="Search friend" />
         <activity
-            android:name=".home"
-            android:exported="true"
-            android:label="Add friend"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
             android:name=".login"
             android:exported="true"
             android:label="Login" />

@@ -42,6 +42,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.example.login_register.HelperFunctions;
 
@@ -56,8 +57,10 @@ public class search_users extends AppCompatActivity {
     static ArrayList<SearchUserInfo> userDetails;
     String isFriend,currentState,extra1,extra2;
     CustomAdapter customarrayAdapter;
+    int size;
     DatabaseReference fref,rref;
     int index;
+    Map<String,Integer> frequencyMap;
 
 
     @Override
@@ -113,6 +116,8 @@ public class search_users extends AppCompatActivity {
                 String name = ds.child("name").getValue(String.class);
                 names.add(name);
             }
+
+            frequencyMap = HelperFunctions.count_freq(names);
             System.out.println("ccccccccccccccccccccccccccccccs" + names);
 
             ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, names);
@@ -140,25 +145,34 @@ public class search_users extends AppCompatActivity {
     }
 
     private void searchUser(String name) {
+        Log.d(TAG,"1 Search User is called!");
         Query query = mref.orderByChild("name").equalTo(name);
         System.out.println("Query :" + query);
+
+        size = HelperFunctions.getIndexFromMap(frequencyMap,name);
+        Log.d(TAG,"SIZEEEEEEEEE: "+size);
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 if (snapshot.exists()) {
+                    Log.d(TAG,"2 Query on Data change called");
+                    Log.d(TAG,"3 userDetails & listusers is cleraed");
                     int temp = userDetails.size();
                     userDetails.clear();
                     listusers.clear();
                     customarrayAdapter.notifyItemRangeRemoved(0,temp);
                     index = 0;
+
                     for (DataSnapshot ds : snapshot.getChildren()) {
+                        Log.d(TAG,"3 Index: "+index);
                         dataHandler user = new dataHandler(ds.child("user_name").getValue(String.class),
                                 ds.child("name").getValue(String.class),
                                 ds.child("email").getValue(String.class),
                                 ds.child("pass").getValue(String.class),
                                 ds.child("hash_id").getValue(String.class));
-                        listusers.add(user);
+
                         friend_id = ds.getKey();
                         //SearchUserInfo user_details = new SearchUserInfo(user_id, friend_id);
 
@@ -171,6 +185,8 @@ public class search_users extends AppCompatActivity {
                             fref.addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                    Log.d(TAG,"OnDatachange of "+ ds.getKey() +" for friends called!");
 
                                     extra1 = snapshot.child("request_type").getValue(String.class);
                                     if (extra1 != null) {
@@ -187,6 +203,7 @@ public class search_users extends AppCompatActivity {
                                     rref.addValueEventListener(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            Log.d(TAG,"OnDatachange of "+ ds.getKey() +" for requests called!");
                                             extra2 = snapshot.child("request_type").getValue(String.class);
                                             if (extra2 != null) {
                                                 currentState = (String) snapshot.child("request_type").getValue(String.class);
@@ -197,27 +214,29 @@ public class search_users extends AppCompatActivity {
 
                                             System.out.println("Kinetic: In deep: FriendId= "+ ds.getKey() +" currentstate= "+currentState);
 
+                                            //
+                                            if (index < size){
+                                                user.setIndex(index);
+                                                listusers.add(user);
+                                                userDetails.add(new SearchUserInfo(user_id,ds.getKey(),isFriend,currentState,index));
+                                                index+=1;
+                                                }
+                                            else{
 
-                                            userDetails.add(new SearchUserInfo(user_id,ds.getKey(),isFriend,currentState));
+                                                listusers.set(user.getIndex(),user);
+                                                userDetails.set(user.getIndex(), new SearchUserInfo(user_id,ds.getKey(),isFriend,currentState,index));
+                                            }
                                             customarrayAdapter.notifyItemInserted(index);
-
                                             Log.d(TAG,index + " USer added: "+ds.getKey());
-                                            index+=1;
 
-
-
-                //                        //customarrayAdapter.notifyDataSetChanged();
-                //
-                //                        index+=1;
-                //
                                         }
+
 
                                         @Override
                                         public void onCancelled(@NonNull DatabaseError error) {
 
                                         }
                                     });
-
 
                                 }
 
@@ -227,10 +246,7 @@ public class search_users extends AppCompatActivity {
                                 }
                             });
 
-
                     }
-
-
 
                 }
             }

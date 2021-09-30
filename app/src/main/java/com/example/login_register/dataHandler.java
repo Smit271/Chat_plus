@@ -2,6 +2,7 @@ package com.example.login_register;
 
 public class dataHandler {
     public String username, name, email, pass, hash_id;
+    int index;
 
     public dataHandler(String username, String name, String email, String pass, String hash_id) {
         this.hash_id = hash_id;
@@ -44,5 +45,17 @@ public class dataHandler {
 
     public void setPass(String pass) {
         this.pass = pass;
+    }
+
+    public void setHash_id(String hash_id) {
+        this.hash_id = hash_id;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 }

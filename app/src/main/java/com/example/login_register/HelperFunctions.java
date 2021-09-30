@@ -16,6 +16,11 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.TreeMap;
+
 public class HelperFunctions {
     private String currentUname, user_id;
     public void HelperFunctions(){
@@ -68,9 +73,59 @@ public class HelperFunctions {
                 break;
             // start the activity connect to the specified class
         }
+    }
 
+
+    public static Map<String,Integer> count_freq(ArrayList<String> arr)
+    {
+        Map<String,Integer> mp= new TreeMap<>();
+
+        // Splitting to find the word
+
+        // Loop to iterate over the words
+        for(int i=0;i<arr.size();i++)
+        {
+            // Condition to check if the
+            // array element is present
+            // the hash-map
+            if(mp.containsKey(arr.get(i)))
+            {
+                mp.put(arr.get(i), mp.get(arr.get(i))+1);
+            }
+            else
+            {
+                mp.put(arr.get(i),1);
+            }
+        }
+
+        // Loop to iterate over the
+        // elements of the map
+        for(Map.Entry<String,Integer> entry:
+                mp.entrySet())
+        {
+            System.out.println("Kinetic "+entry.getKey()+
+                    " - "+entry.getValue());
+        }
+
+        return mp;
 
     }
+
+    public static int getIndexFromMap(Map<String, Integer> mp, String searchKey) {
+
+        for(Map.Entry<String,Integer> entry:
+                mp.entrySet())
+        {
+
+            if (entry.getKey().equals(searchKey)){
+                return entry.getValue();
+            }
+        }
+        return -1;
+
+    }
+
+
 
 }
 
