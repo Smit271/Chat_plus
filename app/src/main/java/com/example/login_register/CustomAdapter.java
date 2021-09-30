@@ -54,9 +54,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
      * @param dataSet       String[] containing the data to populate views to be used
      *                      by RecyclerView.
      */
+    private Context context;
     public CustomAdapter(Context context,ArrayList<dataHandler> dataSet,ArrayList<SearchUserInfo> user_dataset) {
         super();
         this.localDataSet = dataSet;
+        this.context = context;
         this.user_dataset = user_dataset;
         mref = FirebaseDatabase.getInstance().getReference("users");
         System.out.println("Kinetic: Constructor of Custom Adapter is called: "+ localDataSet+user_dataset);
@@ -92,7 +94,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             System.out.println("---" + one_user_detail.getUser_id() + one_user_detail.getIsFriend() + one_user_detail.getCurrentState() + one_user_detail.getFriend_id());
             if (one_user_detail.getIsFriend().equals("accepted")) {
                 viewHolder.item_btn.setText("Remove Friend");
-                viewHolder.item_btn.setBackgroundColor(0xFFD40000);
+                View view;
+                viewHolder.item_btn.setBackgroundColor(context.getResources().getColor(R.color.decline_btn));
                 viewHolder.item_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -100,7 +103,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 viewHolder.item_btn.setText("Add Friend");
-                                viewHolder.item_btn.setBackgroundColor(0xFF000000);
+                                viewHolder.item_btn.setBackgroundColor(context.getResources().getColor(R.color.primary));
                                 Toast.makeText(view.getContext(), "Removed " + one_user_detail.getFriend_id(), Toast.LENGTH_LONG).show();
                                 System.out.println("2222222");
                                 one_user_detail.setIsFriend("not_accepted");
@@ -156,7 +159,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         viewHolder.item_btn.setText("Cancel Request");
-                                        viewHolder.item_btn.setBackgroundColor(0xFFD40000);
+                                        viewHolder.item_btn.setBackgroundColor(context.getResources().getColor(R.color.decline_btn));
                                         System.out.println("send-------");
                                         one_user_detail.setCurrentState("received");
                                         System.out.println("Kinetic: Not Received is done");
@@ -179,7 +182,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
                             }
                         });
                     } else if (one_user_detail.getCurrentState().equals("received")) {
-                        viewHolder.item_btn.setText("Cancel Request1");
+                        viewHolder.item_btn.setText("Cancel Request");
                         viewHolder.item_btn.setBackgroundColor(0xFFD40000);
                         viewHolder.item_btn.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -188,7 +191,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         viewHolder.item_btn.setText("Add Friend");
-                                        viewHolder.item_btn.setBackgroundColor(0xFF000000);
+                                        viewHolder.item_btn.setBackgroundColor(view.getResources().getColor(R.color.primary));
                                         System.out.println("cancel -------");
                                         one_user_detail.setCurrentState("not_received");
                                         System.out.println("Kinetic: Not Received is done");
