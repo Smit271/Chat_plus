@@ -51,12 +51,12 @@
         android:id="@+id/add_user_in_chat_screen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="15dp"
         android:src="@drawable/add_friends_icon"
         android:foregroundGravity="right"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:backgroundTint="@color/primary">
+        android:backgroundTint="@color/white">
     </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
 </RelativeLayout>
