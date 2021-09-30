@@ -47,7 +47,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class Register_page extends AppCompatActivity {
+public class  Register_page extends AppCompatActivity {
 
     public static final String TAG = null;
     Button mregisterBtn;
