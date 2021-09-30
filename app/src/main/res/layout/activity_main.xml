@@ -19,7 +19,7 @@
                 android:id="@+id/FromText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Chat PLUS to chat MAST 😂"
+                android:text="Chat PLUS to chat MAST"
                 android:textColor="@color/secondary_text"
                 android:textSize="18dp"
                 android:layout_centerHorizontal="true"
