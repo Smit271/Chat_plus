@@ -49,11 +49,15 @@ public class search_users extends AppCompatActivity {
 
     static String friend_id, user_id, MyEmail;
     static DatabaseReference mref;
-
+    private final String TAG = "Kinetic";
     private RecyclerView list;
     private AutoCompleteTextView txtsearch;
     static ArrayList<dataHandler> listusers;
-    static ArrayList<Search_user_data> userDetails;
+    static ArrayList<SearchUserInfo> userDetails;
+    String isFriend,currentState,extra1,extra2;
+    CustomAdapter customarrayAdapter;
+    DatabaseReference fref,rref;
+    int index;
 
 
     @Override
@@ -76,14 +80,20 @@ public class search_users extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         list.setLayoutManager(layoutManager);
 
-        listusers = new ArrayList<>();
-        userDetails = new ArrayList<>();
-        CustomAdapter arrayAdapter = new CustomAdapter(this,listusers,userDetails);
-        list.setAdapter(arrayAdapter);
+        listusers = new ArrayList<dataHandler>();
+        userDetails = new ArrayList<SearchUserInfo>();
+        customarrayAdapter = new CustomAdapter(this,listusers,userDetails);
+        list.setAdapter(customarrayAdapter);
 
         ValueEventListener event = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int temp = userDetails.size();
+                userDetails.clear();
+                listusers.clear();
+                customarrayAdapter.notifyItemRangeRemoved(0,temp);
+
+                Log.d(TAG,"Before Populate Search " + userDetails);
                 populateSearch(snapshot);
             }
 
@@ -110,6 +120,13 @@ public class search_users extends AppCompatActivity {
             txtsearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+
+                    int temp = userDetails.size();
+                    userDetails.clear();
+                    listusers.clear();
+                    customarrayAdapter.notifyItemRangeRemoved(0,temp);
+                    customarrayAdapter.notifyDataSetChanged();
+
                     System.out.println("FFFFFFFFFF--------------   " + position);
                     String selection = adapterView.getItemAtPosition(position).toString();
                     searchUser(selection);
@@ -125,10 +142,16 @@ public class search_users extends AppCompatActivity {
     private void searchUser(String name) {
         Query query = mref.orderByChild("name").equalTo(name);
         System.out.println("Query :" + query);
-        query.addValueEventListener(new ValueEventListener() {
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
+                    int temp = userDetails.size();
+                    userDetails.clear();
+                    listusers.clear();
+                    customarrayAdapter.notifyItemRangeRemoved(0,temp);
+                    index = 0;
                     for (DataSnapshot ds : snapshot.getChildren()) {
                         dataHandler user = new dataHandler(ds.child("user_name").getValue(String.class),
                                 ds.child("name").getValue(String.class),
@@ -137,11 +160,78 @@ public class search_users extends AppCompatActivity {
                                 ds.child("hash_id").getValue(String.class));
                         listusers.add(user);
                         friend_id = ds.getKey();
-                        Search_user_data user_details = new Search_user_data(user_id, friend_id);
-                        userDetails.add(user_details);
+                        //SearchUserInfo user_details = new SearchUserInfo(user_id, friend_id);
+
+                        // Add start
+                        fref = FirebaseDatabase.getInstance().getReference("users").child(ds.getKey()).child("friends").child(user_id);
+
+                        System.out.println("Kinetic: Before on data change: " + ds.getKey() + " " + user_id + " fref:" + fref.toString());
+
+
+                            fref.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                    extra1 = snapshot.child("request_type").getValue(String.class);
+                                    if (extra1 != null) {
+
+                                        isFriend = (String) snapshot.child("request_type").getValue(String.class);
+                                    } else {
+                                        isFriend = "not_accepted";
+                                    }
+                                    //System.out.println("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww" + isFriend);
+
+
+                                    rref = FirebaseDatabase.getInstance().getReference("users").child(ds.getKey()).child("Request").child(user_id);
+
+                                    rref.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            extra2 = snapshot.child("request_type").getValue(String.class);
+                                            if (extra2 != null) {
+                                                currentState = (String) snapshot.child("request_type").getValue(String.class);
+                                            } else {
+                                                currentState = "not_received";
+                                            }
+                                            //System.out.println("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww" + currentState);
+
+                                            System.out.println("Kinetic: In deep: FriendId= "+ ds.getKey() +" currentstate= "+currentState);
+
+
+                                            userDetails.add(new SearchUserInfo(user_id,ds.getKey(),isFriend,currentState));
+                                            customarrayAdapter.notifyItemInserted(index);
+
+                                            Log.d(TAG,index + " USer added: "+ds.getKey());
+                                            index+=1;
+
+
+
+                //                        //customarrayAdapter.notifyDataSetChanged();
+                //
+                //                        index+=1;
+                //
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+
+
                     }
-                } else {
-                    Log.d("users", "No data found");
+
+
+
                 }
             }
 
@@ -150,6 +240,67 @@ public class search_users extends AppCompatActivity {
 
             }
         });
+
+
+
+//        query.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//
+//
+//                        fref.addValueEventListener(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//
+//                                rref = FirebaseDatabase.getInstance().getReference("users").child(ds.getKey()).child("Request").child(user_id);
+//                                rref.addValueEventListener(new ValueEventListener() {
+//                                    @Override
+//                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                        extra2 = snapshot.child("request_type").getValue(String.class);
+//                                        if (extra2 != null) {
+//                                            currentState = (String) snapshot.child("request_type").getValue(String.class);
+//                                        } else {
+//                                            currentState = "not_received";
+//                                        }
+//                                        System.out.println("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww" + currentState);
+//
+//
+//                                    }
+//
+//
+//                                }
+//
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError error) {
+//
+//                            }
+//                        });
+//
+//                        System.out.println("Kinetic: Isfriend "+isFriend);
+//
+//
+//                            //Add end
+//
+//
+//                        userDetails.add(user_details);
+//                        //customarrayAdapter.notifyDataSetChanged();
+//                        customarrayAdapter.notifyItemInserted(index);
+//                        index+=1;
+//                        Log.d(TAG,index + " USer added: "+friend_id);
+//
+//
+//
+//                    }
+//                } else {
+//                    Log.d("users", "No data found");
+//                }
+//            }
+
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 //        query.addListenerForSingleValueEvent(new ValueEventListener() {
 //            @Override
 //            public void onDataChange(@NonNull DataSnapshot snapshot) {
