@@ -1,5 +1,0 @@
-1)Who: Karm
-  file: build.gradle(:app)
-  Changes: implementation 'com.firebaseui:firebase-ui:0.6.0'
-  Decryption: I have downgraded firebase.ui version as above, please don't change it's version,
-  otherwise it will give an error in ChatScreen1.java.

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.login_register">
+    package="com.chatplus.login_register">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
@@ -15,30 +15,30 @@
         tools:ignore="UnusedAttribute"
         tools:replace="android:appComponentFactory">
         <activity
-            android:name=".list_of_requests"
+            android:name="com.chatplus.login_register.list_of_requests"
             android:exported="true" />
         <activity
-            android:name=".ChatScreen1"
+            android:name="com.chatplus.login_register.ChatScreen1"
             android:label="Chat_screen_1"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".setting_profile_picture" />
+        <activity android:name="com.chatplus.login_register.setting_profile_picture" />
         <activity
-            android:name=".chat_listview_of_friends"
+            android:name="com.chatplus.login_register.chat_listview_of_friends"
             android:exported="true" />
         <activity
-            android:name=".search_users"
+            android:name="com.chatplus.login_register.search_users"
             android:exported="true"
             android:label="Search friend" />
         <activity
-            android:name=".login"
+            android:name="com.chatplus.login_register.login"
             android:exported="true"
             android:label="Login" />
         <activity
-            android:name=".Register_page"
+            android:name="com.chatplus.login_register.Register_page"
             android:label="Register"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.chatplus.login_register.MainActivity"
             android:exported="true"
             android:label="Chat Plus">
             <intent-filter>
