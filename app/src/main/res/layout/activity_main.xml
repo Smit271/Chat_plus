@@ -19,14 +19,15 @@
                 android:id="@+id/FromText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Chat PLUS to chat MAST 😂"
+                android:text="Chat PLUS to chat MAST"
                 android:textColor="@color/secondary_text"
-                android:textSize="18dp"
+                android:textSize="16dp"
+                android:textStyle="italic"
                 android:layout_centerHorizontal="true"
                 android:layout_alignParentBottom="true"
                 android:layout_below="@id/chat_plus_logo"
                 android:gravity="bottom"
-                android:paddingBottom="20dp"
-                />
+                android:paddingBottom="20dp"/>
+
 
 </RelativeLayout>
