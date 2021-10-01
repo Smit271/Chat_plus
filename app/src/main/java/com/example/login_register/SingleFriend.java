@@ -5,13 +5,21 @@ import android.net.Uri;
 
 public class SingleFriend {
 
-    private String username;
+    private String username, name_of_user;
     private int profile_image_id;
     private Bitmap profilePictureBitmap;
     private String uri;
 
     public SingleFriend(String username, int profile_image_id, Bitmap profilePictureBitmap,String uri) {
         this.username = username;
+        this.profile_image_id = profile_image_id;
+        this.profilePictureBitmap = profilePictureBitmap;
+        this.uri = uri;
+    }
+
+    public SingleFriend(String username, String name_of_user, int profile_image_id, Bitmap profilePictureBitmap, String uri) {
+        this.username = username;
+        this.name_of_user = name_of_user;
         this.profile_image_id = profile_image_id;
         this.profilePictureBitmap = profilePictureBitmap;
         this.uri = uri;
@@ -47,5 +55,13 @@ public class SingleFriend {
 
     public void setProfilePictureBitmap(Bitmap profilePictureBitmap) {
         this.profilePictureBitmap = profilePictureBitmap;
+    }
+
+    public String getName_of_user() {
+        return name_of_user;
+    }
+
+    public void setName_of_user(String name_of_user) {
+        this.name_of_user = name_of_user;
     }
 }
