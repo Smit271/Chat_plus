@@ -42,7 +42,7 @@
             android:foregroundGravity="right"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="@color/primary"
             app:rippleColor="@color/primary">
         </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
