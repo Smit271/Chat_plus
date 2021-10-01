@@ -44,7 +44,10 @@ public class adapter_listview_of_friends_in_chat extends ArrayAdapter <SingleFri
 
         //set usname
         TextView funame = (TextView) listItemView.findViewById(R.id.username);
+        TextView fname = (TextView) listItemView.findViewById(R.id.name_of_user_single_friend);
+
         funame.setText(friend.getUsername());
+        fname.setText(friend.getName_of_user());
         //set profile image
         ImageView fprofile_image = (ImageView) listItemView.findViewById(R.id.profile_picture);
 

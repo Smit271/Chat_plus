@@ -185,34 +185,35 @@ public class search_users extends AppCompatActivity {
                             fref.addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                                    Log.d(TAG,"OnDatachange of "+ ds.getKey() +" for friends called!");
-
-                                    extra1 = snapshot.child("request_type").getValue(String.class);
-                                    if (extra1 != null) {
-
-                                        isFriend = (String) snapshot.child("request_type").getValue(String.class);
-                                    } else {
-                                        isFriend = "not_accepted";
-                                    }
-                                    //System.out.println("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww" + isFriend);
-
-
                                     rref = FirebaseDatabase.getInstance().getReference("users").child(ds.getKey()).child("Request").child(user_id);
 
                                     rref.addValueEventListener(new ValueEventListener() {
                                         @Override
-                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        public void onDataChange(@NonNull DataSnapshot snapshot2) {
                                             Log.d(TAG,"OnDatachange of "+ ds.getKey() +" for requests called!");
-                                            extra2 = snapshot.child("request_type").getValue(String.class);
+
+                                            Log.d(TAG,"OnDatachange of "+ ds.getKey() +" for friends called!");
+
+                                            extra1 = snapshot.child("request_type").getValue(String.class);
+                                            if (extra1 != null) {
+
+                                                isFriend = (String) snapshot.child("request_type").getValue(String.class);
+                                            } else {
+                                                isFriend = "not_accepted";
+                                            }
+                                            System.out.println("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww" + isFriend);
+
+
+                                            extra2 = snapshot2.child("request_type").getValue(String.class);
+
                                             if (extra2 != null) {
-                                                currentState = (String) snapshot.child("request_type").getValue(String.class);
+                                                currentState = (String) snapshot2.child("request_type").getValue(String.class);
                                             } else {
                                                 currentState = "not_received";
                                             }
                                             //System.out.println("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww" + currentState);
 
-                                            System.out.println("Kinetic: In deep: FriendId= "+ ds.getKey() +" currentstate= "+currentState);
+                                            System.out.println("Kinetic: In deep: FriendId= "+ ds.getKey() +" currentstate= "+currentState + "Isfriend"+isFriend);
 
                                             //
                                             if (index < size){
@@ -261,7 +262,7 @@ public class search_users extends AppCompatActivity {
 
 //        query.addValueEventListener(new ValueEventListener() {
 //            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//            public void onDataChange(@NonNull DataSnapshot snapshot2) {
 //
 //
 //                        fref.addValueEventListener(new ValueEventListener() {

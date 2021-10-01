@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -43,6 +44,7 @@ public class chat_listview_of_friends extends AppCompatActivity {
     StorageReference storageReference;
     Bitmap bitmap;
     ArrayList<String> myFriendUnames = new ArrayList<String>();
+    ArrayList<String> myFriendnames = new ArrayList<String>();
     ArrayList<SingleFriend> singleFriends = new ArrayList<SingleFriend>();
 
 
@@ -95,10 +97,28 @@ public class chat_listview_of_friends extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 myFriendUnames.clear();
+                myFriendnames.clear();
                 singleFriends.clear();
                 for (DataSnapshot snap : snapshot.getChildren()) {
-                    myFriendUnames.add(snap.getKey().toString());
-                    Log.d(TAG, "Key +++++++ " + snap.getKey() + "++++++++++");
+
+                    String uname = snap.getKey().toString();
+                    myFriendUnames.add(uname);
+
+                     FirebaseDatabase.getInstance().getReference("users").child(uname).child("name").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            if (task.isSuccessful()){
+                                String name = task.getResult().getValue().toString();
+                                myFriendnames.add(name);
+                                Log.d(TAG, "Key +++++++ " + name + " " + snap.getKey() + "++++++++++");
+
+                            }
+                        }
+                    });
+
+
+
+
                 }
 
 
@@ -108,6 +128,8 @@ public class chat_listview_of_friends extends AppCompatActivity {
                     progressBar.setVisibility(View.GONE);
                     textView.setVisibility(View.VISIBLE);
                 }
+
+
 
                 //This is list of objects to of SingleFriend to pass in array adapter
                 //Profile Image should be come from database using user id
@@ -120,7 +142,7 @@ public class chat_listview_of_friends extends AppCompatActivity {
                         @Override
                         public void onSuccess(Uri uri) {
                             Log.d(TAG, myFriendUnames.get(finalI)+": " + uri.toString());
-                            singleFriends.add(new SingleFriend(myFriendUnames.get(finalI), 0, null, uri.toString()));
+                            singleFriends.add(new SingleFriend(myFriendUnames.get(finalI), myFriendnames.get(finalI),0, null, uri.toString()));
                             singleFriendAdapter.notifyDataSetChanged();
                             Log.d(TAG,myFriendUnames.get(finalI) + " Notified!");
 
@@ -132,7 +154,7 @@ public class chat_listview_of_friends extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             Log.d(TAG, "Failed to get Image of "+myFriendUnames.get(finalI));
-                            singleFriends.add(new SingleFriend(myFriendUnames.get(finalI), R.drawable.ic_launcher_foreground, null, null));
+                            singleFriends.add(new SingleFriend(myFriendUnames.get(finalI),myFriendnames.get(finalI), R.drawable.ic_launcher_foreground, null, null));
                             singleFriendAdapter.notifyDataSetChanged();
                             Log.d(TAG,myFriendUnames.get(finalI) + " Notified!");
                             if (progressBar.getVisibility() == View.VISIBLE){ progressBar.setVisibility(View.GONE); }
@@ -151,7 +173,7 @@ public class chat_listview_of_friends extends AppCompatActivity {
                         chatIntent.putExtra("uname_of_friend", sFriend.getUsername());
                         chatIntent.putExtra("uname_of_mine", MyUserId);
                         chatIntent.putExtra("profile_image",sFriend.getUri());
-                        Log.d(TAG, "In Putextra my Usrname: " + MyUserId);
+                        Log.d(TAG, "In Put extra my Username: " + MyUserId);
                         startActivity(chatIntent);
                     }
                 });
